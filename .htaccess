@@ -1,0 +1,19 @@
+# Security: Don't allow to access htaccess file
+<Files .htaccess>
+    order allow,deny
+    deny from all
+</Files>
+
+# Security: Don't allow browsing of directories
+Options -Indexes
+
+#FollowSymLinks is a directive in your web server configuration that tells your web server to follow so called symbolic links.
+Options +FollowSymlinks -MultiViews
+RewriteEngine on
+
+# 404 handler
+ErrorDocument 404 /notFound.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/([^/]+)(/.*)?$ $3?$1=$2 [N,QSA,DPI]
+RewriteRule ^(/[^/]+|[^/]+/|/?)$ /hybridSE/index.php [L,QSA,DPI]
