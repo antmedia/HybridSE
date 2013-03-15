@@ -111,7 +111,7 @@
     <script>window.jQuery || document.write('<script src="js/libs/jquery-1.8.2.js"><\/script>')</script>
     
         <!-- Do the same with jQuery UI -->
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <!--<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>-->
     <script>window.jQuery.ui || document.write('<script src="js/libs/jquery-ui-1.9.1.js"><\/script>')</script>
     
         <!-- Do the same with Lo-Dash.js -->
@@ -137,7 +137,7 @@
     <script defer async src="https://ajax.googleapis.com/ajax/libs/webfont/1.0.28/webfont.js"></script>
     
     <!-- Essential polyfills -->
-    <script src="js/mylibs/polyfills/modernizr-2.6.1.min.js"></script>
+    <script src="js/mylibs/polyfills/modernizr-2.6.1.js"></script>
     <script src="js/mylibs/polyfills/respond.js"></script>
     <script src="js/mylibs/polyfills/matchmedia.js"></script>
     <!--[if lt IE 9]><script src="js/mylibs/polyfills/selectivizr.js"></script><![endif]-->
@@ -236,10 +236,12 @@
     <!-- Some dialogs etc. -->
 
     <!-- The loading box -->
-    <div id="loading-overlay"></div>
+    <!--
+	<div id="loading-overlay"></div>
     <div id="loading">
         <span><?php echo __("Loading...") ?></span>
     </div>
+	-->
     <!-- End of loading box -->
     
     <!-- The lock screen -->
@@ -486,10 +488,12 @@
 	<!-- Some dialogs etc. -->
 
 	<!-- The loading box -->
+	<!--
 	<div id="loading-overlay"></div>
 	<div id="loading">
 		<span><?php echo __("Loading...") ?></span>
 	</div>
+	-->
 	<!-- End of loading box -->
 	
 	<!--------------------------------->

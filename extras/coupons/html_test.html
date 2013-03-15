@@ -1,0 +1,199 @@
+<applet name="jZebra" code="jzebra.PrintApplet.class" alt="jZebra did not load properly" archive="dist/jzebra.jar" width="0" height="0">
+	<param name="printer" value="zebra">
+</applet>
+﻿<html>
+   <head><title>jZebra Demo</title></head>
+   <body bgcolor="#F0F0F0">
+   <h1>jZebra Applet 1.3.4 - Test Page</h1><br>
+
+   <script type="text/javascript">
+      var sleepCounter = 0;
+   
+      function findPrinter() {
+         var applet = document.jZebra;
+         if (applet != null) {
+            // Searches for locally installed printer with "zebra" in the name
+            applet.findPrinter("zebrajet");
+         }
+         
+         monitorFinding();
+      }
+
+      function findPrinters() {
+         var applet = document.jZebra;
+         if (applet != null) {
+            // Searches for locally installed printer with "zebra" in the name
+            applet.findPrinter("\\{dummy printer name for listing\\}");
+         }
+
+         monitorFinding2();
+      }
+      
+
+      // Gets the current url's path, such as http://site.com/example/dist/
+      function getPath() {
+          var path = window.location.href;
+          return path.substring(0, path.lastIndexOf("/")) + "/";
+      }
+      
+ 
+      function printHTML() {
+            var applet = document.jZebra;
+            if (applet != null) {
+               applet.findPrinter("\\{dummy printer name for listing\\}");
+               while (!applet.isDoneFinding()) {
+                   // Wait
+               }
+
+               // Sample only: If a PDF printer isn't installed, try the Microsoft XPS Document
+               // Writer.  Replace this with your printer name.
+               var printers = applet.getPrinters().split("zebrajet");
+               for (i in printers) {
+                   if (printers[i].indexOf("Microsoft XPS") != -1 || 
+                    printers[i].indexOf("PDF") != -1) {
+                    applet.setPrinter(i);      
+                  }            
+               }
+               
+               // No suitable printer found, exit
+               if (applet.getPrinter() == null) {
+                   alert("Could not find a suitable printer for an HTML document");
+                   return;
+               }
+               
+               // Preserve formatting for white spaces, etc.
+               var colA = fixHTML('<h2>*  jZebra HTML Printing  *</h2>');
+               colA = colA + '<color=red>Version:</color> ' + applet.getVersion() + '<br>';
+               colA = colA + '<color=red>Visit:</color> <http://code.google.com/p/jzebra';
+               
+               // HTML image
+               var colB = '<img src="' + getPath() + 'image_sample.png">';
+                
+               // Append our image (only one image can be appended per print)
+               applet.appendHTML('<html><table face="monospace" border="1px"><tr height="6cm">' + 
+                   '<td valign="top">' + colA + '</td>' + 
+                   '<td valign="top">' + colB + '</td>' + 
+                   '</tr></table></html>');
+            }
+
+            // Very important for html, uses printHTML() instead of print()
+            monitorAppending3();
+      }
+      
+      // Fixes some html formatting for printing. Only use on text, not on tags!  Very important!
+      //    1.  HTML ignores white spaces, this fixes that
+      //    2.  The right quotation mark breaks PostScript print formatting
+      //    3.  The hyphen/dash autoflows and breaks formatting  
+      function fixHTML(html) { return html.replace(/ /g, "&nbsp;").replace(/’/g, "'").replace(/-/g,"&#8209;"); }
+      
+      
+      function chr(i) {
+         return String.fromCharCode(i);
+      }
+      
+      function monitorPrinting() {
+        var applet = document.jZebra;
+        if (applet != null) {
+           if (!applet.isDonePrinting()) {
+              window.setTimeout('monitorPrinting()', 100);
+           } else {
+              var e = applet.getException();
+              alert(e == null ? "Printed Successfully" : "Exception occured: " + e.getLocalizedMessage());
+           }
+        } else {
+            alert("Applet not loaded!");
+        }
+      }
+      
+      function monitorFinding() {
+        var applet = document.jZebra;
+        if (applet != null) {
+           if (!applet.isDoneFinding()) {
+              window.setTimeout('monitorFinding()', 100);
+           } else {
+              var printer = applet.getPrinterName();
+              alert(printer == null ? "Printer not found" : "Printer \"" + printer + "\" found");
+           }
+        } else {
+            alert("Applet not loaded!");
+        }
+      }
+
+      function monitorFinding2() {
+        var applet = document.jZebra;
+        if (applet != null) {
+           if (!applet.isDoneFinding()) {
+              window.setTimeout('monitorFinding2()', 100);
+           } else {
+              var printersCSV = applet.getPrinters();
+              var printers = printersCSV.split(",");
+              for (p in printers) {
+                  alert(printers[p]);
+              }
+              
+           }
+        } else {
+            alert("Applet not loaded!");
+        }
+      }
+      
+      function monitorAppending() {
+        var applet = document.jZebra;
+        if (applet != null) {
+           if (!applet.isDoneAppending()) {
+              window.setTimeout('monitorAppending()', 100);
+           } else {
+              applet.print(); // Don't print until all of the data has been appended
+              monitorPrinting();
+           }
+        } else {
+            alert("Applet not loaded!");
+        }
+      }
+
+      function monitorAppending2() {
+        var applet = document.jZebra;
+        if (applet != null) {
+           if (!applet.isDoneAppending()) {
+              window.setTimeout('monitorAppending2()', 100);
+           } else {
+              applet.printPS(); // Don't print until all of the image data has been appended
+              monitorPrinting();
+           }
+        } else {
+            alert("Applet not loaded!");
+        }
+      }
+      
+      function monitorAppending3() {
+        var applet = document.jZebra;
+        if (applet != null) {
+           if (!applet.isDoneAppending()) {
+              window.setTimeout('monitorAppending3()', 100);
+           } else {
+              applet.printHTML(); // Don't print until all of the image data has been appended
+              monitorPrinting();
+           }
+        } else {
+            alert("Applet not loaded!");
+        }
+      }
+
+   </script>
+   
+   <applet name="jZebra" code="jzebra.PrintApplet.class" archive="./jzebra.jar" width="100" height="100">
+      <param name="printer" value="zebrajet">
+      <!-- <param name="sleep" value="200"> -->
+   </applet><br><br>
+
+   <input type=button onClick="findPrinter()" value="Detect Printer"><br><br>
+   <input type=button onClick="printHTML()" value="Print HTML"><br>
+   <input type=button onClick="findPrinters()" value="List All Printers"><br><br>
+
+   </body>
+   <br><br>To view the applet's html source code:<strong> Right Click This Page --> View Source</strong> and look for <strong>&lt;applet&gt &lt;/applet&gt;</strong> code.
+   <br><br>The applet is invoked with JavaScript through:  <strong>document.jZebra.applet.append("RAW DATA");</strong> and <strong>document.jZebra.applet.print();</strong>.  For more details, Right Click This Page --> View Source and look for <strong>&lt;script&gt &lt;/script&gt;</strong> code.
+   <br><br>If the applet loads above, you can view it's output by enabling the Java console through Control Panel.
+   <br><br>To get the latest version, or submit a bug visit: <a href="http://code.google.com/p/jzebra">http://code.google.com/p/jzebra</a><br>
+   <br><br><strong>Java Console:</strong> Please copy/paste details from the <a href="http://java.com/en/download/help/javaconsole.xml">java console</a> when submitting a bug report
+</html>
