@@ -32,15 +32,44 @@
 </div>
 
 <!-- Scan Coupons Dialog -->
-<div style="display: none;" id="dialog_scan_coupons" title="Digitalizar cupões">
-	<script type="text/javascript" src="extras/qrcode/js/jquery.webcamqrcode.js"></script>
-	<div style="width: 350px; height: 350px;" id="qrcodebox"></div>
-	<input type="button" value="Scan" id="btn_start" /> 
-	<input type="button" value="Stop" id="btn_stop" />
-	Last QRCode value: <span id="qrcode_result">none</span>
-	<!--<div id="txtDesconto"><b>O desconto será mostrado aqui</b></div>-->
-	<!--<iframe src="extras/popup_scan.php" frameborder="0" width="370" height="440"></iframe>-->
-</div>
+<div id="settings" class="settings-content" data-width="450">
+    
+	<ul class="tabs center-elements">
+		<li><a href="#qrcode"><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQncGI8FA5lT_dscTPv5JdFiYmQQBIBANqJQN9Zp2hpcqGbQU_8Ew" width="24" height="24" alt="" /><span>QRcode</span></a></li>
+		<li><a href="#barcode"><img src="http://t0.gstatic.com/images?q=tbn:ANd9GcQzSJ5K324OyLpsWg2Li8tF2Qt9h3T4xAhalR7wfPnOjhpTSpLNsA" width="24" height="24" alt="" /><span>CodeBar</span></a></li>
+	</ul>
+	
+	<div class="content">
+	
+		<div id="qrcode">
+			<script type="text/javascript" src="extras/qrcode/js/jquery.webcamqrcode.js"></script>
+			<div style="width: 350px; height: 350px;" id="qrcodebox"></div>
+			<input type="button" value="Scan" id="btn_start" /> 
+			<input type="button" value="Stop" id="btn_stop" />
+			Last QRCode value: <span id="qrcode_result">none</span>
+			<div id="txtDesconto"><b>O desconto será mostrado aqui</b></div>
+			<!--<iframe src="extras/popup_scan.php" frameborder="0" width="370" height="440"></iframe>-->
+		</div><!-- End of #settings-1 -->
+		
+		<div id="barcode">
+			<embed src="extras/codebar/gurulib_barcode.swf" loop="false" menu="false" quality="best" scale="noborder" wmode="opaque" bgcolor="#ffffff" width="320" height="270" name="gurulib_barcode" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+		</div><!-- End of #settings-2 -->
+		
+	</div><!-- End of .content -->
+	
+	<div class="actions">
+		<div class="left">
+			<button class="grey cancel">Fechar</button>
+		</div>
+		<div class="right">
+			<!--
+			<button class="save">Save</button>
+			<button class="hide saving" disabled >Saving...</button>
+			-->
+		</div>
+	</div><!-- End of .actions -->
+	
+</div><!-- End of settings dialog -->
 
 <script>
 $$.ready(function() {
@@ -98,7 +127,7 @@ function AlimentaTabela(){
 
 function change_status(str){
 	if (str==""){
-		document.getElementById("txtDesconto").innerHTML="";
+		document.getElementById("txtStatus").innerHTML="";
 		return;
 	} 
 	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -108,12 +137,12 @@ function change_status(str){
 	}
 		xmlhttp.onreadystatechange=function(){
 		if (xmlhttp.readyState==4 && xmlhttp.status==200){
-			document.getElementById("tbody").innerHTML=xmlhttp.responseText;
+			AlimentaTabela();
+			document.getElementById("txtStatus").innerHTML=xmlhttp.responseText;
 		}
 	}
 	xmlhttp.open("GET","extras/ajax_functions.php?what=voucher_status&q="+str,true);
 	xmlhttp.send();
-	AlimentaTabela();
 }
 
 //SCAN
@@ -152,7 +181,8 @@ function showVoucher(str){
 	}
 		xmlhttp.onreadystatechange=function(){
 		if (xmlhttp.readyState==4 && xmlhttp.status==200){
-			document.getElementById("txtDesconto").innerHTML=xmlhttp.responseText;
+			document.getElementById("txtDesconto").innerHTML="a sua tabela de descontos foi actualizada";
+			AlimentaTabela();
 		}
 	}
 	xmlhttp.open("GET","extras/ajax_functions.php?what=find_voucher&q="+str,true);
@@ -174,14 +204,14 @@ function showVoucher(str){
 			<div class="tabletools">
 				<div class="left">
 					<a class="open-print_coupons-dialog" href="javascript:void(0);"><i class="icon-print"></i>Imprimir cupões</a>
-					<a class="open-scan_coupons-dialog" href="javascript:void(0);"><i class="icon-camera"></i>Digitalizar cupões</a>
+					<a id="dialog_settings" href="javascript:$$.settings();"><i class="icon-camera"></i>Digitalizar cupões</a>
 				</div>
 				<div class="right">								
 				</div>
 			</div>
-			<form action="http://www.sapo.pt" name="lista" id="lista" method="POST">
+			<form action="" name="lista" id="lista" method="POST">
 			<table class="dynamic styled" data-table-tools='{"display":true}'>
-			<thead>
+				<thead>
 					<tr>
 						<th>ID</th>
 						<th>ID Cliente</th>

@@ -540,7 +540,7 @@
 		<div class="container">
 		
 			<!-- Your logos -->
-			<a href="/tf-mango/"><img src="img/logo-light.png" alt="Mango" width="210" height="67"></a>
+			<a href="?"><img src="img/logo-light.png" alt="Mango" width="210" height="67"></a>
 			<a class="phone-title" href="login.html"><img src="img/logo-mobile.png" alt="Mango" height="22" width="70" /></a>
 			
 		</div><!-- End of .container -->
