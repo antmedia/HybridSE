@@ -8,7 +8,7 @@
 						<td class='center'>$data[code_min_shop_products]</td>
 						<td class='center'>$data[code_max_shop_products]</td>
 						<td class='center'>$data[validity_shop_products]</td>
-						<td class='center'><a href='#' class='button small grey tooltip' data-gravity='s' title='Editar' onclick=\"javascript:return alert('Lamentamos mas esta opção ainda não se encontra disponível.')\"><i class='icon-pencil'></i></a> <a href='?st=$_GET[st]&del=$data[id_shop_products]' class='button small grey tooltip' data-gravity='s' title='Apagar' onclick=\"javascript:return confirm('Tem a certeza?')\"><i class='icon-remove'></i></a></td>
+						<td class='center'><a href='#' class='button small grey tooltip' data-gravity='s' title='Editar' onclick=\"javascript:return alert('Lamentamos mas esta opção ainda não se encontra disponível.')\"><i class='icon-pencil'></i></a> <a href='?st=$_GET[st]&del=$data[id_shop_products]' class='button small grey tooltip' data-gravity='s' title='Apagar' onclick=\"javascript:return confirm('Tem a certeza?')\"><i class='icon-remove'></i></a> <span class='st_sharethis' st_url='http://www.sapo.pt' st_title='$data[name_shop_products]' st_image='http://4.bp.blogspot.com/-GstPanyNsm4/T-BSJlI_ioI/AAAAAAAAB1M/uciYRKWRiZw/s1600/633667524571485000_danone.gif' st_summary='$data[intro_text_shop_products]'></span></td>
 					</tr>";
 		}
 	}

@@ -9,6 +9,12 @@
 		*/
 		if($_GET['st']=='1') include("modules/pages/pages.php");
 		
+		if($_GET['st']=='fb1') include("modules/facebook/facebook_general.php");
+		if($_GET['st']=='fb2') include("modules/facebook/facebook_fans.php");
+		if($_GET['st']=='fb3') include("modules/facebook/facebook_page.php");
+		if($_GET['st']=='fb4') include("modules/facebook/facebook_reach.php");
+		if($_GET['st']=='fb5') include("modules/facebook/facebook_talking.php");
+
 		if($_GET['st']=='dft1') include("modules/settings/profile.php");
 		if($_GET['st']=='dft2') include("modules/settings/configurations.php");
 		if($_GET['st']=='dft3') include("modules/settings/backups.php");
@@ -37,3 +43,4 @@
 			}
 		}
 	} else include ('modules/home.php');
+?>

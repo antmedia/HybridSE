@@ -1,10 +1,10 @@
 <?php
-    error_reporting(E_ERROR); // Turn off all error reporting 
+    //error_reporting(E_ERROR); // Turn off all error reporting 
     //DATABASE LOGIN
     $dbhost='localhost';
-    $dbusername='root';
-    $dbuserpass='';
-    $dbname='hybrid_se';
+    $dbusername='hybridpt';
+    $dbuserpass='3N59khtP';
+    $dbname='hybridpt_se';
     
     //Credenciais do servidor final
     //$dbhost='';

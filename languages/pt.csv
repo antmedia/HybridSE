@@ -12,7 +12,7 @@ Sign In;Entrar
 Logout;Sair
 Due to the inactivity of this session, your account was temporarily locked.;Devido à inatividade da sessão, a sua conta foi temporariamente bloqueada.
 To unlock your account, simply slide the button and enter your password.;Para desbloquear a sua conta, deslize o botão e escreva a palavra-chave.
-slide me;desliza me
+slide me;deslizar
 slide to unlock;desliza
 Enter your password here...;Escreva a Palavra-Chave
 Unlock;Entrar
@@ -53,3 +53,11 @@ Real-time visits;Visitas em tempo real
 Real-time Map;Mapa de visitas em tempo real
 Social network;Portais sociais
 Create module;
+Id;ID
+Title;Título
+Fk;
+Intro;Introdução
+Full text;Texto completo
+Status;Estado
+Created;Criado
+Options;Opções

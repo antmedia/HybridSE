@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Facebook Login & User Analytics Script 1.0 </title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+		pre { 
+		border: 2px dashed #DEDEDE;
+		color: #000000;
+		font-size: 13px;
+	    line-height: 16px;
+	    padding: 10px;
+	    width: 547px;
+		    word-wrap: break-word;
+		}
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		
+		
+		<h1 class="center" class="alt">Facebook Login & User Analytics Script 1.0 - Documentation</h1>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#introduction">Introduction</a></li>
+			<li><a href="#TheFiles">Files In This Project</a></li>
+			<li><a href="#requiremnt">Requirement</a></li>
+			<li><a href="#HowToInstall">How to Install</a></li>
+			<li><a href="#facebook">How To Create Facebook App</a></li>
+			<li><a href="#demo">Demo & Features</a></li>
+		</ol>
+		
+		<hr>
+		
+		<h3 id="introduction" class="alt"><strong>A) Introduction</strong> </h3>
+		<p>The facebook Login and user analytics script will enable users to login to the website using facebook login and therefore the user data's are saved 
+		for the marketing purposes. More than the email we are trying to establish an relationship between the user and you so you can know more about the users collective intrests and make effective changes to satisfy the users.
+		<br/>
+		<strong>Features :</strong>
+		</br>
+			<ul>
+				<li>User email collection </li>
+				<li>Gender analytics chart</li>
+				<li>Peak time usage chart</li>
+				<li>User's language analytics</li>
+				<li>Daily , monthly, Yearly report.</li>
+				<li>User's Age group analytics</li>
+				<li>User's Like list,category analytics & friend lists database.</li>
+				<li>User's date of birth, login logs & details.</li>
+			</ul>
+		<br>
+		<hr>
+
+		<h3 id="TheFiles" class="alt"><strong>B) Files In This Project</strong> <a href="#toc" title="">Top</a></h3>
+
+		<p>This Project has following folder structure</p> 
+
+		<p>
+			<ul>
+				<li><b>Main Files</b> <em class="quiet small">(Contanis Main files fb.php that includes facebook login logut code,and implementation files index.php,and so )</em></li>
+				<li><b>src/*</b> <em class="quiet small">(Required Facebook sdk files.)</em></li>
+				<li><b>js/*</b> <em class="quiet small">(Required js files)</em></li>			
+				<li><b>css/*</b> <em class="quiet small">(Required css files)</em></li>			
+				<li><b>images/*</b> <em class="quiet small">(Required images)</em></li>			
+			</ul>		
+		</p>
+
+		<hr>
+		<h3 class="alt" id="requiremnt"><strong>C) Requiremnt</strong> <a href="#toc" title="">Top</a></h3>
+		<p>This script  needs the <strong>CURL PHP</strong> extension</p>
+		<p>This script  needs the <strong>JSON PHP</strong> extension</p>
+		<hr>
+		<h3 id="HowToInstall" class="alt"><strong>D) Installation</strong> <a href="#toc" title="">Top</a></h3>
+<ol>
+<li><b>Configure Facebook API</b></li>
+<strong>fb.php</strong>
+<p>Facebook appId and secret are generated when you create facebook application from the link <a href="https://developers.facebook.com/apps" title="">https://developers.facebook.com/apps</a></p>
+<p>Provide fb app details in <b>fb.php</b></p>
+<pre>
+$app_id		= "";
+$app_secret	= "";
+</pre>
+<li><b>Configure Base Path : </b>Configure your base path and your domain !
+<pre>
+$site_url	= "";
+</pre>
+</li>
+		<hr>
+		<h3 id="facebook" class="alt"><strong>F) How To Create Facebook App </strong>&nbsp;&nbsp;&nbsp; <a href="#toc" title="">Top</a></h3>
+		<ol>
+			<li>
+			Go to <a href="https://developers.facebook.com/apps" title="">https://developers.facebook.com/apps</a> and Proceed with Create New App Link .<br/><br/>
+			<img src="assets/screenshots/apps1.PNG" border="0" alt="" width="700">
+			</li>
+			<li>In step 2 Give your app name and continue <img src="assets/screenshots/apps2.PNG" border="0" alt="" width="700"></li>
+			<li>You have Created Facebook app ,Kindly Note Your facebook app id and app secret <img src="assets/screenshots/apps3.PNG" border="0" alt="" width="700"></li>
+		</ol>
+		<hr>
+		<h3 id="demo" class="alt"><strong>F) Demo and Features</strong>&nbsp;&nbsp;&nbsp; <a href="#toc" title="">Top</a></h3>
+		<p>
+		<a href="http://happytechies.com/insights_demo/" TARGET="_BLANK" title="">Click here for live demo</a>
+		</p>
+		<hr>
+		<p>Features Screenshots</p>
+		<ul>
+			<li>General Report 
+			<img src="assets/screenshots/1.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/3.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/2.jpg" border="0" alt="" width="700">
+			</li><br>
+			<li>Fans Report
+			<img src="assets/screenshots/4.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/5.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/6.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/8.jpg" border="0" alt="" width="700">
+			</li><br>
+			<li>Page Post
+			<img src="assets/screenshots/9.jpg" border="0" alt="" width="700">
+			</li><br>
+			<li>Reach report.
+			<img src="assets/screenshots/10.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/11.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/12.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/13.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/14.jpg" border="0" alt="" width="700">
+			</li><br>
+			<li>Talking about this 
+			<img src="assets/screenshots/15.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/16.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/17.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/18.jpg" border="0" alt="" width="700">
+			<img src="assets/screenshots/19.jpg" border="0" alt="" width="700">
+			</li><br>
+			</ul>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+
+</html>

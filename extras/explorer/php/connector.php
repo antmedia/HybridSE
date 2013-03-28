@@ -23,13 +23,17 @@ function access($attr, $path, $data, $volume) {
 		: ($attr == 'read' || $attr == 'write');  // else set read+write to true, locked+hidden to false
 }
 
+//$pathfolder=$_GET['folder'];
+//$urlfolder=explode('/',$_GET['folder']);
+
 $opts = array(
 	// 'debug' => true,
 	'roots' => array(
 		array(
 			'driver'        => 'LocalFileSystem',   // driver for accessing file system (REQUIRED)
-			'path'          => '../../../documents/',         // path to files (REQUIRED)
-			'URL'           => '../../../documents/', // URL to files (REQUIRED)
+			'path'          => "../../../../documents/",         // path to files (REQUIRED)
+			'URL'           => "../../../documents/", // URL to files (REQUIRED)
+			//'URL'           => "../../documents/avatar/", // URL to files (REQUIRED)
 			'accessControl' => 'access'             // disable and hide dot starting files (OPTIONAL)
 		)
 	)

@@ -1,5 +1,4 @@
-﻿<?php
-	//error_reporting(E_ALL);
+<?php
 	session_start();
     include('config.php');
     include('extras/functions.php');
@@ -158,6 +157,7 @@
     <script src="js/mylibs/fullstats/jquery.css-transform.js"></script>
     <script src="js/mylibs/fullstats/jquery.animate-css-rotate-scale.js"></script>
     <script src="js/mylibs/forms/jquery.validate.js"></script>
+    <script src="js/libs/jquery.popupWindow.js"></script>
         
     <!-- Do not touch! -->
     <script src="js/mango.js"></script>
@@ -175,6 +175,7 @@
 				script_url : 'js/mylibs/tiny_mce/tiny_mce.js',
 
 				// General options
+				language : 'pt',
 				skin : "cirkuit",
 				theme : "advanced",
 				plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
@@ -224,7 +225,12 @@
 		});
 	</script>
 	<!-- /TinyMCE -->
-
+	<!-- AddThis -->
+	<!--<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "42f7eae4-f16e-4893-a01f-ae04f1903196", doNotHash: false, doNotCopy: false, hashAddressBar: true, theme:'2', onhover: false});</script>-->
+	<!-- //Add this -->
+	
     <!-- end scripts -->
     
 </head>
@@ -236,12 +242,10 @@
     <!-- Some dialogs etc. -->
 
     <!-- The loading box -->
-    <!--
 	<div id="loading-overlay"></div>
     <div id="loading">
         <span><?php echo __("Loading...") ?></span>
     </div>
-	-->
     <!-- End of loading box -->
     
     <!-- The lock screen -->
@@ -362,7 +366,7 @@
         <section class="toolbar">
             <div class="user">
                 <div class="avatar">
-                    <img src="<?php echo $_SESSION['admin_avatar']?>" width="26" height="26">
+                    <img src="../<?php echo $_SESSION['admin_avatar']?>" width="26" height="26">
                     <span><?php panel_messages("count") ?></span>
                 </div>
                 <span><?php echo $_SESSION['admin_username'] ?></span>
@@ -392,6 +396,16 @@
                 
                     <li class="current"><a href="?"><img src="img/icons/packs/fugue/16x16/dashboard.png" alt="" height=16 width=16><?php echo __("Dashboard") ?></a></li>
                     <li><a href="?"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height=16 width=16><?php echo __("Pages") ?></a></li>
+					<li>
+                        <a href="javascript:void(0);"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height="16" width="16"><?php echo __("FaceBook") ?><span class="badge">6</span></a>
+                        <ul>
+                            <li><a href="?st=fb1"><span class="icon icon-list"></span><?php echo __("General") ?></a></li>
+                            <li><a href="?st=fb2"><span class="icon icon-cog"></span><?php echo __("Page Fans") ?></a></li>
+                            <li><a href="?st=fb3"><span class="icon icon-picture"></span><?php echo __("Page Post") ?></a></li>
+                            <li><a href="?st=fb4"><span class="icon icon-th"></span><?php echo __("Reach") ?></a></li>
+                            <li><a href="?st=fb5"><span class="icon icon-th"></span><?php echo __("Talking") ?></a></li>
+                        </ul>
+                    </li>
 					<li>
                         <a href="javascript:void(0);"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height="16" width="16"><?php echo __("Configurations") ?><span class="badge">6</span></a>
                         <ul>
