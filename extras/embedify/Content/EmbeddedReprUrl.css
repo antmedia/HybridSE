@@ -1,0 +1,126 @@
+﻿ 
+ .embeddedUrlPictureWrapper
+        {
+        	width:      100px;
+        	height:     100px;
+        	
+        }
+        
+        .thumbNavDisabled {
+            display: none;    
+            
+        }
+       
+        
+   .nopicture {
+        border:none  0px #fff !important;
+       width: 0 !important;
+       height: 0 !important;
+   }
+   
+   
+        .boxgrid{
+	        margin:10px;
+	        float:left;
+	        background:#fff;
+	        border: solid 1px #8399AF;
+	        overflow: hidden;
+	        position: relative;
+        }
+        .boxgrid img{
+	        position: absolute;
+	        top: 0;
+	        left: 0;
+	        border: 0;
+	        
+	        
+        }
+       
+             .captionfull .boxcaption {
+ 	                top: 60;
+ 	                left: 0;
+                 }
+                 .caption .boxcaption {
+ 	                top: 20;
+ 	                left: 0;
+                 }
+        .playvideo
+        {
+            cursor:pointer;
+            cursor:hand;	
+    	}
+     .pictureAndThumb {
+         float: left;
+     }
+     .nextThumb {
+            cursor: pointer;
+            cursor:hand;	
+     }
+     .prevThumb {
+            cursor: pointer;
+            cursor:hand;	
+
+     }
+     .prevThumbContainer {
+         width: 26px;
+         float: left;
+     }
+     .nextThumbContainer {
+         width: 26px;
+         float: right;
+     }
+     .thumbNavStatus {
+         line-height: 25px;
+         margin-right: 27px;
+         height: 25px;
+         text-align: center;
+     }
+     .thumbSelect {
+         width: 80px;
+         margin: 0 auto;
+     }
+     .embeddedUrlRepresentationWrapper .nonVisibleInPost {
+         display: block;
+     }
+     .nonVisibleInPost {
+         display: none;
+     }
+        .embeddedUrlRepresentationWrapper{
+        	
+        	display:none;
+        }
+        .embeddedUrlRepresentationLoader
+        {
+            
+        	float:left;
+        	height:50px;
+			padding: 23px 50px;
+        }
+        .embeddedRepresentationContent
+        {
+        	float:left
+        }
+        .embeddedRepresentationClose
+        {
+        	float:left;
+        	height:50px;
+        	
+         }
+         .embeddedRepresentationClose a
+         {
+         	
+         	display:block;
+         	height:30px;
+         	text-indent:-1000px
+         }
+         
+         .embeddorPoster
+         {
+         		margin:5px 10px 0 0;
+         		float:right;
+         	}
+         	
+        .embeddedUrlDescription
+        {
+        	margin:10px 10px 10px 0;
+        	}
