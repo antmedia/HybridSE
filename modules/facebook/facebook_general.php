@@ -29,11 +29,11 @@ $$.ready(function() {
 			<h2><img class="icon" src="img/icons/packs/fugue/16x16/table.png">Filtrar</h2>
 		</div>
 		
-		<form name="frm_page" id="frm_page" action="?st=sb4" method="GET">
+		<form name="frm_page" id="frm_page" action="?st=<?php echo $_GET['st'] ?>" method="GET"  class="full validate">
 		<div class="content">
 			<!-- FACEBOOK -->
 				<div class='row'><label for='$field'><strong>Escolher página</strong></label><div><div>
-				<select name="sel_id">
+				<select name="sel_id" class="required">
 				<option value="">Escolher página</option>
 				<?php 
 				foreach($user_info['accounts']['data'] as $key=>$value) { 
@@ -44,7 +44,7 @@ $$.ready(function() {
 				?>
 				</select>
 				</div></div></div>
-				<div class='row'><label for='start'><strong>Intervalo</strong></label><div><div> De: <input type='date' name='start' id='start' value="<?php echo (isset($_GET['start']))?$_GET['start']:NULL ?>" /> Até: <input type='date' name='end' id='end' value="<?php echo (isset($_GET['end']))?$_GET['end']:NULL ?>" /></div></div></div>
+				<div class='row'><label for='start'><strong>Intervalo</strong></label><div><div> De: <input type='date' name='start' id='start' value="<?php echo (isset($_GET['start']))?$_GET['start']:NULL ?>" class="required" /> Até: <input type='date' name='end' id='end' value="<?php echo (isset($_GET['end']))?$_GET['end']:NULL ?>" class="required" /></div></div></div>
 			<!-- FACEBOOK -->
 		</div><!-- End of .content -->
 		<div class="actions">

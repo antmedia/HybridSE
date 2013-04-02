@@ -404,6 +404,7 @@
                             <li><a href="?st=fb3"><span class="icon icon-picture"></span><?php echo __("Page Post") ?></a></li>
                             <li><a href="?st=fb4"><span class="icon icon-th"></span><?php echo __("Reach") ?></a></li>
                             <li><a href="?st=fb5"><span class="icon icon-th"></span><?php echo __("Talking") ?></a></li>
+                            <li><a href="?st=fb6"><span class="icon icon-th"></span><?php echo __("Profile") ?></a></li>
                         </ul>
                     </li>
 					<li>

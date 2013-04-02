@@ -1,6 +1,6 @@
 <?php
 $app_id		= "549473515084151";
-$app_secret	= "e4d42d5f5cd7c2d71f267bf04186156a";
+$app_secret	= "60e02524ba99f7e063705806a0fea655";
 
 
 $site_url	= "http://www.hybrid.pt/se/?st=fb1";
@@ -14,6 +14,7 @@ try{
 $facebook = new Facebook(array(
 	'appId'		=> $app_id,
 	'secret'	=> $app_secret,
+	'cookie'	=> true
 	));
 
 $user = $facebook->getUser();
@@ -34,7 +35,7 @@ if($user){
 }else{
 	// Get login URL
 	$loginUrl = $facebook->getLoginUrl(array(
-		'scope'			=> 'publish_stream,user_photos,user_about_me,email,manage_pages,read_insights,read_stream',
+		'scope'			=> 'publish_stream,user_photos,user_about_me,manage_pages,read_insights,read_stream,user_birthday,user_location,user_work_history,user_hometown,email,user_likes',
 		'redirect_uri'	=> $site_url,
 		));
 }

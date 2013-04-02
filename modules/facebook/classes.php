@@ -210,4 +210,24 @@
 		}
 		// end Talking //
 	}
+	
+	// USER INFO //
+	// Bloco em conflito //
+	
+	$fields='id,name,first_name,last_name,email,username,gender,location,birthday,link,locale';
+	$queries = array(
+	array('method' => 'GET', 'relative_url' => '/me?fields='.$fields),
+	array('method' => 'GET', 'relative_url' => '/'.$user.'/friends'),
+	array('method' => 'GET', 'relative_url' => '/'.$user.'/likes'),
+	array('method' => 'GET', 'relative_url' => '/'.$user.'/interests'),
+	);
+	$batchResponse = $facebook->api('?batch='.json_encode($queries), 'POST');
+	//string. Decode for use as a PHP array.
+	$info_user		= json_decode($batchResponse[0]['body'], TRUE);
+	$friends_list	= json_decode($batchResponse[1]['body'], TRUE);
+	$likes			= json_decode($batchResponse[2]['body'], TRUE);
+	$interests		= json_decode($batchResponse[3]['body'], TRUE);
+	// Lista Amigos
+	$total_friends=count($friends_list['data']);
+	// end USER INFO //
 ?>

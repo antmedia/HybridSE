@@ -14,6 +14,7 @@
 		if($_GET['st']=='fb3') include("modules/facebook/facebook_page.php");
 		if($_GET['st']=='fb4') include("modules/facebook/facebook_reach.php");
 		if($_GET['st']=='fb5') include("modules/facebook/facebook_talking.php");
+		if($_GET['st']=='fb6') include("modules/facebook/profile.php");
 
 		if($_GET['st']=='dft1') include("modules/settings/profile.php");
 		if($_GET['st']=='dft2') include("modules/settings/configurations.php");
