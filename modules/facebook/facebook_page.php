@@ -187,7 +187,7 @@ $$.ready(function() {
 						$viral=$insights_post['data']['0']['values']['0']['value'];
 						?>
 						<tr class="gradeX">
-							<td><?php echo substr($value['message'],0,60); ?></td>
+							<td><?php echo truncate_str($value['message'],60); ?> ...</td>
 							<td><?php echo $viral; ?></td>
 							<td><?php echo $comments['count'];?></td>
 							<td><?php echo $likes['count'];?></td>

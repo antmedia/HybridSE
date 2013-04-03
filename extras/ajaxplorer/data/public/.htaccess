@@ -1,4 +1,0 @@
-ErrorDocument 404 http://localhost/HybridSE/lib/ajaxplorer/data/public/404.html
-<Files ".ajxp_*">
-deny from all
-</Files>
