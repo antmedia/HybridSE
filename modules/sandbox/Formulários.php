@@ -22,9 +22,10 @@
 				fields_type("client_password2");
 				fields_type("test_nogrow","LALALAL");
 				fields_type("test_grow","LALALAL");
-				fields_type("wysiwyg","LALALAL");
-				fields_type("select_search","32");
-				fields_type("select_search2","2");
+				fields_type("wysiwyg","LALALAL");*/
+				fields_type("fk_admins","32");
+				
+				/*fields_type("select_search2","2");
 				fields_type("select_nosearch","11");
 				fields_type("select_nosearch2","3");*/
 				fields_type("select_tags","11,32");

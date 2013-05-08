@@ -156,11 +156,12 @@
 															echo "<select name='$field' id='$field' class='search $required' data-placeholder='$placeholder'>";
 															echo "<option value=''></option>";
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
-																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status='1'");
+																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
 																while($data_tbl=mysql_fetch_array($sql_tbl)){
-																	$aux_field=(mysql_query("SELECT name FROM $data[values_fields]"))?"name":"title";
-																	$selected=($data_tbl['id']==$predefined)?"selected":NULL;
-																	echo "<option value='$data_tbl[id]' $selected>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</option>";
+																	$aux_field=(mysql_query("SELECT name_$data[values_fields] FROM $data[values_fields]"))?"name_$data[values_fields]":"title_$data[values_fields]";
+																	$mytable="id_".$data['values_fields'];
+																	$selected=($data_tbl[$mytable]==$predefined)?"selected":NULL;
+																	echo "<option value='$data_tbl[$mytable]' $selected>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</option>";
 																}
 															} else {
 																$types=explode(";",$data['values_fields']);
@@ -184,11 +185,12 @@
 															echo "<select name='$field' id='$field' class='$required' data-placeholder='$placeholder'>";
 															echo "<option value=''></option>";
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
-																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status='1'");
+																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
 																while($data_tbl=mysql_fetch_array($sql_tbl)){
-																	$aux_field=(mysql_query("SELECT name FROM $data[values_fields]"))?"name":"title";
-																	$selected=($data_tbl['id']==$predefined)?"selected":NULL;
-																	echo "<option value='$data_tbl[id]' $selected>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</option>";
+																	$aux_field=(mysql_query("SELECT name_$data[values_fields] FROM $data[values_fields]"))?"name_$data[values_fields]":"title_$data[values_fields]";
+																	$mytable="id_".$data['values_fields'];
+																	$selected=($data_tbl[$mytable]==$predefined)?"selected":NULL;
+																	echo "<option value='$data_tbl[$mytable]' $selected>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</option>";
 																}
 															} else {
 																$types=explode(";",$data['values_fields']);
@@ -214,12 +216,12 @@
 															echo "<select name='$field$field_array' id='$field' class='$required' data-placeholder='$placeholder' multiple>";
 															echo "<option value=''></option>";
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
-																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status='1'");
+																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
 																while($data_tbl=mysql_fetch_array($sql_tbl)){
-																	$aux_field=(mysql_query("SELECT name FROM $data[values_fields]"))?"name":"title";
-																	$find=strpos($predefined,$data_tbl['id']);
-																	$selected=($find===FALSE)?NULL:"selected";
-																	echo "<option value='$data_tbl[id]' $selected>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</option>";
+																	$aux_field=(mysql_query("SELECT name_$data[values_fields] FROM $data[values_fields]"))?"name_$data[values_fields]":"title_$data[values_fields]";
+																	$mytable="id_".$data['values_fields'];
+																	$selected=($data_tbl[$mytable]==$predefined)?"selected":NULL;
+																	echo "<option value='$data_tbl[$mytable]' $selected>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</option>";
 																}
 															} else {
 																$types=explode(";",$data['values_fields']);
@@ -246,12 +248,12 @@
 															//$name_array=$field[];
 															echo "<select name='$field$field_array' id='$field' class='dualselects $required' data-placeholder='$placeholder' data-size='small' multiple>";
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
-																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status='1'");
+																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
 																while($data_tbl=mysql_fetch_array($sql_tbl)){
-																	$aux_field=(mysql_query("SELECT name FROM $data[values_fields]"))?"name":"title";
-																	$find=strpos($predefined,$data_tbl['id']);
-																	$selected=($find===FALSE)?NULL:"selected";
-																	echo "<option value='$data_tbl[id]' name='$data_tbl[id]' $selected>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</option>";
+																	$aux_field=(mysql_query("SELECT name_$data[values_fields] FROM $data[values_fields]"))?"name_$data[values_fields]":"title_$data[values_fields]";
+																	$mytable="id_".$data['values_fields'];
+																	$selected=($data_tbl[$mytable]==$predefined)?"selected":NULL;
+																	echo "<option value='$data_tbl[$mytable]' $selected>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</option>";
 																}
 															} else {
 																$types=explode(";",$data['values_fields']);
@@ -278,12 +280,13 @@
 														//Find data from table
 														if($data['values_fields']){
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
-																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status='1'");
+																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
 																while($data_tbl=mysql_fetch_array($sql_tbl)){
-																	$aux_field=(mysql_query("SELECT name FROM $data[values_fields]"))?"name":"title";
+																	$aux_field=(mysql_query("SELECT name_$data[values_fields] FROM $data[values_fields]"))?"name_$data[values_fields]":"title_$data[values_fields]";
+																	$mytable="id_".$data['values_fields'];
 																	$find=strpos($predefined,$data_tbl['id']);
 																	$selected=($find===FALSE)?NULL:"checked";
-																	echo "<div><input type='checkbox' name='cb$data_tbl[id]' id='cb$data_tbl[id]' value='$data_tbl[id]' $selected /> <label for='cb$data_tbl[id]'>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</label></div>";
+																	echo "<div><input type='checkbox' name='cb$data_tbl[$mytable]' id='cb$data_tbl[$mytable]' value='$data_tbl[$mytable]' $selected /> <label for='cb$data_tbl[id]'>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</label></div>";
 																}
 															} else {
 																$types=explode(";",$data['values_fields']);
@@ -307,12 +310,13 @@
 														//Find data from table
 														if($data['values_fields']){
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
-																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status='1'");
+																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
 																while($data_tbl=mysql_fetch_array($sql_tbl)){
-																	$aux_field=(mysql_query("SELECT name FROM $data[values_fields]"))?"name":"title";
+																	$aux_field=(mysql_query("SELECT name_$data[values_fields] FROM $data[values_fields]"))?"name_$data[values_fields]":"title_$data[values_fields]";
+																	$mytable="id_".$data['values_fields'];
 																	$find=strpos($predefined,$data_tbl['id']);
 																	$selected=($find===FALSE)?NULL:"checked";
-																	echo "<div><input type='radio' name='rb$field' id='rb$data_tbl[id]' value='$data_tbl[id]' class='$required' $selected /> <label for='rb$data_tbl[id]'>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</label></div>";
+																	echo "<div><input type='radio' name='rb$field' id='rb$data_tbl[$mytable]' value='$data_tbl[$mytable]' class='$required' $selected /> <label for='rb$data_tbl[$mytable]'>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</label></div>";
 																}
 															} else {
 																$types=explode(";",$data['values_fields']);

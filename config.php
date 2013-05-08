@@ -5,7 +5,6 @@
     $dbusername='root';
     $dbuserpass='';
     $dbname='hybrid_se';
-    $dbname='hybrid_se';
     
     //Credenciais do servidor final
     //$dbhost='';

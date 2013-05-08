@@ -291,7 +291,7 @@
             <div class="right">
                 <ul>
                 
-                    <li><a href="pages_profile.html"><span class="icon i14_admin-user"></span><?php echo __("Profile") ?></a></li>
+                    <li><a href="#"><span class="icon i14_admin-user"></span><?php echo __("Profile") ?></a></li>
                     
                     <li>
                         <a href="#"><span><?php panel_messages("count") ?></span><?php echo __("Messages") ?></a>
@@ -302,7 +302,7 @@
                             
                             <!-- Button bar -->
                             <a class="button flat left grey" onclick="$(this).parent().fadeToggle($$.config.fxSpeed)"><?php echo __("Close") ?></a>
-                            <a class="button flat right" href="tables_dynamic.html"><?php echo __("Inbox") ?></a>
+                            <a class="button flat right" href="#"><?php echo __("Inbox") ?></a>
                             
                             <!-- The mail content -->
                             <div class="content mail">
@@ -327,7 +327,7 @@
             <div class="phone">
                 
                 <!-- User Link -->
-                <li><a href="pages_profile.html"><span class="icon icon-user"></span></a></li>
+                <li><a href="#"><span class="icon icon-user"></span></a></li>
                 <!-- Navigation -->
                 <li><a class="navigation" href="#"><span class="icon icon-list"></span></a></li>
             
@@ -344,15 +344,15 @@
         <a class="phone-title" href="?"><img src="img/logo-mobile.png" alt="Hybrid" height="22" width="70" /></a>
         
         <div class="buttons">
-            <a href="statistics.html">
+            <a href="#">
                 <span class="icon icon-sitemap"></span>
                 Statistics
             </a>
-            <a href="forms.html">
+            <a href="#">
                 <span class="icon icon-list-alt"></span>
                 Forms
             </a>
-            <a href="tables_dynamic.html">
+            <a href="#">
                 <span class="icon icon-table"></span>
                 Tables
             </a>
@@ -556,7 +556,7 @@
 		
 			<!-- Your logos -->
 			<a href="?"><img src="img/logo-light.png" alt="Mango" width="210" height="67"></a>
-			<a class="phone-title" href="login.html"><img src="img/logo-mobile.png" alt="Mango" height="22" width="70" /></a>
+			<a class="phone-title" href="?"><img src="img/logo-mobile.png" alt="Mango" height="22" width="70" /></a>
 			
 		</div><!-- End of .container -->
 	
