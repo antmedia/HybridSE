@@ -121,6 +121,66 @@
 		}
 	}
 	
+	function email_somewhere($email_to,$email_from,$email_name,$email_subject,$email_message) {
+		$to=$email_to; // recipients
+		$subject=$email_subject;// subject
+		$message=$email_message;// message 
+		// Additional headers 
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		$headers .= "From: $email_name <$email_from>" . "\r\n";
+		if(mail($to, $subject, $message, $headers)){// Mail it 
+			alert_box("success","Message sent","Your message has been sent."); //$type,$title,$text		
+			//mysql_query("INSERT INTO admins_changes (fk_admins,fk_modules,action_admins_changes) VALUES ('$_SESSION[admin_id]','$_GET[st]','mail')");
+		} else {
+			alert_box("error","An error occurred","A message was automatically sent a message to the WebMaster with the respective error.");    
+		}
+	}
+	
+	function CreateForm($title,$table,$id=NULL,$ignore,$action){
+		$exp_ignore=explode(',',$ignore);
+		$newArrayFields=array();
+		//Verify array $exp_ignore and add _$table
+		for($k=0;$k < count($exp_ignore);++$k){
+			$find_fk=strpos($exp_ignore[$k],'fk');
+			$newField=($find_fk===FALSE)?$exp_ignore[$k]."_".$table:$exp_ignore[$k];
+			array_push($newArrayFields,$newField);//adding _$table to the array   
+		}
+		
+		echo"<form action='$action' method='post' class='box validate'>
+				<div class='header'>
+					<h2>".__($title)."</h2>
+				</div>
+				<div class='content'>";
+		$result=(isset($id))?mysql_query("SELECT * FROM $table WHERE id_$table='$id'"):mysql_query("SELECT * FROM $table");
+		$dados=mysql_fetch_array($result);
+		for ($i = 0; $i < mysql_num_fields($result); ++$i) {
+			$field = mysql_field_name($result, $i);
+			if(!in_array($field,$newArrayFields)){
+				$aux_title=explode("_$table",$field);
+				$aux_two_title=str_replace("_"," ",$aux_title[0]);
+				$title=__(ucfirst($aux_two_title));
+				//echo "$title - $field<br>";
+				if($id){
+					fields_type($field,$dados[$field]);
+				} else {
+					fields_type($field);
+				}
+			}
+		}
+		echo "</div>
+				<div class='actions'>
+					<div class='left'>
+						<input type='reset' value='Cancel' />
+					</div>
+					<div class='right'>
+						<input type='submit' value='Submit' name=submit />
+					</div>
+				</div>
+		</form>";
+		
+	}
+	
 	function fields_type($field,$data_result=NULL){
 	//function fields_type($table,$field,$what){
 		//$what (form OR list)
@@ -140,9 +200,11 @@
 		
 		
 		switch($data['type_fields']){
-			case "text"						:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
-			case "password"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input type='password' data-gravity=n name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
-			case "password_meter"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input type=password name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='meter strongpw $required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
+			case "text"						:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
+			case "number"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='number' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
+			case "email"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='email' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
+			case "password"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='password' data-gravity=n name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
+			case "password_meter"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type=password name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='meter strongpw $required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
 			case "textarea_nogrow"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='nogrow $required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
 			case "textarea_autogrow"		:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='$required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
 			case "wysiwyg"					:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='tinymce $required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
@@ -153,7 +215,7 @@
 													<div>";
 														//Find data from table
 														if($data['values_fields']){
-															echo "<select name='$field' id='$field' class='search $required' data-placeholder='$placeholder'>";
+															echo "<select data-error-type='inline' name='$field' id='$field' class='search $required' data-placeholder='$placeholder'>";
 															echo "<option value=''></option>";
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
 																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
@@ -182,7 +244,7 @@
 													<div>";
 														//Find data from table
 														if($data['values_fields']){
-															echo "<select name='$field' id='$field' class='$required' data-placeholder='$placeholder'>";
+															echo "<select data-error-type='inline' name='$field' id='$field' class='$required' data-placeholder='$placeholder'>";
 															echo "<option value=''></option>";
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
 																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
@@ -213,7 +275,7 @@
 														if($data['values_fields']){
 															$field_array="[]";
 															//$name_array=$field[];
-															echo "<select name='$field$field_array' id='$field' class='$required' data-placeholder='$placeholder' multiple>";
+															echo "<select data-error-type='inline' name='$field$field_array' id='$field' class='$required' data-placeholder='$placeholder' multiple>";
 															echo "<option value=''></option>";
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
 																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
@@ -246,7 +308,7 @@
 														if($data['values_fields']){
 															$field_array="[]";
 															//$name_array=$field[];
-															echo "<select name='$field$field_array' id='$field' class='dualselects $required' data-placeholder='$placeholder' data-size='small' multiple>";
+															echo "<select data-error-type='inline' name='$field$field_array' id='$field' class='dualselects $required' data-placeholder='$placeholder' data-size='small' multiple>";
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
 																$sql_tbl=mysql_query("SELECT * FROM $data[values_fields] WHERE status_$data[values_fields]='1'");
 																while($data_tbl=mysql_fetch_array($sql_tbl)){
@@ -268,10 +330,10 @@
 															echo "</select>";
 														}
 												echo "</div></div>";Break;
-			case "picker_date"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input type='date' name='$field' id='$field' value='$predefined' class='$required' /></div></div></div>";Break;
-			case "picker_time"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input type='time' name='$field' id='$field' value='$predefined' class='$required' data-step-minute='10' /></div></div></div>";Break;
-			case "picker_date_time"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input type='datetime' name='$field' id='$field' value='$predefined' class='$required'/></div></div></div>";Break;
-			case "picker_color"				:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><div><input type='color' name='$field' id='$field' value='$predefined' class='$required'/></div></div></div>";Break;
+			case "picker_date"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' type='date' name='$field' id='$field' value='$predefined' class='$required' /></div></div></div>";Break;
+			case "picker_time"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' type='time' name='$field' id='$field' value='$predefined' class='$required' data-step-minute='10' /></div></div></div>";Break;
+			case "picker_date_time"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' type='datetime' name='$field' id='$field' value='$predefined' class='$required'/></div></div></div>";Break;
+			case "picker_color"				:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' type='color' name='$field' id='$field' value='$predefined' class='$required'/></div></div></div>";Break;
 			case "checkbox"					:	echo "<div class='row'>
 													<label for='$field'>
 														<strong>$title_field</strong>
@@ -286,7 +348,7 @@
 																	$mytable="id_".$data['values_fields'];
 																	$find=strpos($predefined,$data_tbl['id']);
 																	$selected=($find===FALSE)?NULL:"checked";
-																	echo "<div><input type='checkbox' name='cb$data_tbl[$mytable]' id='cb$data_tbl[$mytable]' value='$data_tbl[$mytable]' $selected /> <label for='cb$data_tbl[id]'>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</label></div>";
+																	echo "<div><input data-error-type='inline' type='checkbox' name='cb$data_tbl[$mytable]' id='cb$data_tbl[$mytable]' value='$data_tbl[$mytable]' $selected /> <label for='cb$data_tbl[id]'>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</label></div>";
 																}
 															} else {
 																$types=explode(";",$data['values_fields']);
@@ -295,11 +357,11 @@
 																foreach(array_combine($values,$names) as $value => $name){
 																	$find=strpos($predefined,$value);
 																	$selected=($find===FALSE)?NULL:"checked";
-																	echo "<div><input type='checkbox' name='cb$value' id='cb$value' value='$value' $selected /> <label for='cb$value'>".utf8_encode($name)."</label></div>";
+																	echo "<div><input data-error-type='inline' type='checkbox' name='cb$value' id='cb$value' value='$value' $selected /> <label for='cb$value'>".utf8_encode($name)."</label></div>";
 																}
 															}
 														} else {
-															echo"<div><input type='checkbox' name='$field' id='$field' value='1' class='$required' /> <label for='$field'></label></div>";
+															echo"<div><input data-error-type='inline' type='checkbox' name='$field' id='$field' value='1' class='$required' /> <label for='$field'></label></div>";
 														}
 												echo "</div></div>";Break;
 			case "radio"					:	echo "<div class='row'>
@@ -316,7 +378,7 @@
 																	$mytable="id_".$data['values_fields'];
 																	$find=strpos($predefined,$data_tbl['id']);
 																	$selected=($find===FALSE)?NULL:"checked";
-																	echo "<div><input type='radio' name='rb$field' id='rb$data_tbl[$mytable]' value='$data_tbl[$mytable]' class='$required' $selected /> <label for='rb$data_tbl[$mytable]'>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</label></div>";
+																	echo "<div><input data-error-type='inline' type='radio' name='rb$field' id='rb$data_tbl[$mytable]' value='$data_tbl[$mytable]' class='$required' $selected /> <label for='rb$data_tbl[$mytable]'>".ucfirst(utf8_encode($data_tbl[$aux_field]))."</label></div>";
 																}
 															} else {
 																$types=explode(";",$data['values_fields']);
@@ -325,17 +387,17 @@
 																foreach(array_combine($values,$names) as $value => $name){
 																	$find=strpos($predefined,$value);
 																	$selected=($find===FALSE)?NULL:"checked";
-																	echo "<div><input type='radio' name='rb$field' id='rb$value' value='$value' class='$required' $selected /> <label for='rb$value'>".utf8_encode($name)."</label></div>";
+																	echo "<div><input data-error-type='inline' type='radio' name='rb$field' id='rb$value' value='$value' class='$required' $selected /> <label for='rb$value'>".utf8_encode($name)."</label></div>";
 																}
 															}
 														}
 												echo "</div></div>";Break;
-			case "slider"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-type='range' name='$field' id='$field' class='$required' value='$predefined' /></div></div>";Break;
-			case "slider_range"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-type='range' data-range='[$data[values_fields]]' name='$field' id='$field' class='$required' value='$predefined' /></div></div>";Break;
-			//case "autocomplete"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input type=text data-type='autocomplete' id='$field' name='$field' data-source='extras/autocomplete.php?what=$data[values_fields]' /></div></div>";Break;
-			case "spinner"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-type='spinner' name='$field' id='$field' class='$required' value='$predefined' /></div></div></div>";Break;
-			case "file"						:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input type='file' id='$field' name='$field' class='$required' /></div></div>";Break;
-			case "image"					:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input type='text' name='$field' id='$field' class='$required' value='$predefined' placeholder='$placeholder' $title_field /></div></div>";
+			case "slider"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' data-type='range' name='$field' id='$field' class='$required' value='$predefined' /></div></div>";Break;
+			case "slider_range"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' data-type='range' data-range='[$data[values_fields]]' name='$field' id='$field' class='$required' value='$predefined' /></div></div>";Break;
+			//case "autocomplete"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type=text data-type='autocomplete' id='$field' name='$field' data-source='extras/autocomplete.php?what=$data[values_fields]' /></div></div>";Break;
+			case "spinner"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' data-type='spinner' name='$field' id='$field' class='$required' value='$predefined' /></div></div></div>";Break;
+			case "file"						:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='file' id='$field' name='$field' class='$required' /></div></div>";Break;
+			case "image"					:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' class='$required' value='$predefined' placeholder='$placeholder' $title_field /></div></div>";
 												?>
 												<script language='JavaScript'>
 													$('#<?php echo $field?>').popupWindow({ 
@@ -349,7 +411,7 @@
 												</script>
 												<?php
 												break;
-			case "document"					:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input type='text' name='$field' id='$field' class='$required' value='$predefined' placeholder='$placeholder' $title_field /></div></div>";
+			case "document"					:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' class='$required' value='$predefined' placeholder='$placeholder' $title_field /></div></div>";
 												?>
 												<script language='JavaScript'>
 													$('#<?php echo $field?>').popupWindow({ 
@@ -363,7 +425,19 @@
 												</script>
 												<?php
 												break;
-			default							:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' $title_field /></div></div>";Break;
+			case "edit_area"				:	echo "";?><script>
+													editAreaLoader.init({
+														id: "<?php echo $field ?>"	// id of the textarea to transform		
+														,start_highlight: true	// if start with highlight
+														,allow_resize: "both"
+														,allow_toggle: true
+														,word_wrap: true
+														,language: "pt"
+														,syntax: "js"	
+													});
+												</script>
+												<?php echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='nogrow $required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
+			default							:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' $title_field /></div></div>";Break;
 		}
 	}
 	
@@ -404,7 +478,8 @@
 		$result=mysql_query("SELECT * FROM $table WHERE delete_$table=0 $myfilter");
 		
 		// Lists the table name and then the field name
-		echo "<table class=\"dynamic styled\" data-table-tools='{\"display\":true}'><thead><tr>";
+		//echo "<table class=\"dynamic styled\" data-table-tools='{\"display\":true}'><thead><tr>";
+		echo "<table class=\"dynamic styled with-prev-next\" data-table-tools='{\"display\":true}'><thead><tr>";
 		for ($i = 0; $i < mysql_num_fields($result); ++$i) {
 			$field = mysql_field_name($result, $i);        
 			if(in_array($field,$newArrayFields)){
@@ -425,9 +500,10 @@
 			}
 		}
 		echo($options!=NULL)?"<th>".__("Options")."</th>":NULL;
-		echo"</tr></thead><tbody><tr class='gradeX'>";
+		echo"</tr></thead><tbody>";
 		//Rest of table
 		while($data=mysql_fetch_array($result)){
+			echo"<tr class='gradeX'>";
 			for ($i = 0; $i < mysql_num_fields($result); ++$i) {
 			$field = mysql_field_name($result, $i);
 				if(in_array($field,$newArrayFields)){
@@ -444,6 +520,7 @@
 					}
 				}			
 			}
+			
 			
 			// Options
 			$aux_id="id_$table";
@@ -471,8 +548,69 @@
 				if(in_array("qrcode",$newArrayOptions)) echo" <a href='http://chart.apis.google.com/chart?cht=qr&chs=230x230&chl=$qr_code' title='".__("QR code")."' alt='".__("QR code")."' target='_blank'><i class='icon-iphone-4'></i></a>";
 				echo"</td>";
 			}
+			echo"</tr>";
 			// end Options
 		}
-		echo "</tr></tbody></table>";
+		echo "</tbody></table>";
+	}
+	
+	function EditOnTable($table,$ignore,$id_item=NULL){
+		$exp_ignore=explode(',',$ignore);
+		$newArrayFields=array();
+
+		//Verify array $exp_ignore and add _$table
+		for($k=0;$k < count($exp_ignore);++$k){
+			$newField= $exp_ignore[$k]."_".$table;
+			array_push($newArrayFields,$newField);//adding _$table to the array   
+		}
+		
+		$result = mysql_query("SELECT * FROM $table");
+		// Lists the table name and then the field name
+		for ($i = 0; $i < mysql_num_fields($result); ++$i) {
+			$field = mysql_field_name($result, $i); 
+			if(!in_array($field,$newArrayFields)){   
+				$dados[$field]=utf8_decode($_POST[$field]); 
+			}
+		}
+		
+		if($id_item){
+			$q="UPDATE ".$table." SET ";
+			$aux=0;
+			$n=count($dados);
+			foreach($dados as $key=>$val) {   
+				if  ($aux==$n-1) $v.="$key='".$val."'";    
+				else $v.="$key='".$val."' , ";
+				$aux++; 
+			} 
+			$q.="$v";
+			if(mysql_query("$q WHERE id_$table='$id_item'")) alert_box("success","Success","Data updated!");
+			else alert_box("error","error","Error on update data, please try again later.");
+		} else {
+			$q="INSERT INTO ".$table." ";
+			foreach($dados as $key=>$val) {
+				$n.="$key,";
+				if(strtolower($val)=='null') $v.="NULL, ";
+				elseif(strtolower($val)=='now()') $v.="NOW(), ";
+				else $v.= "'".$val."', ";
+			}
+			$q .= "(". rtrim($n, ', ') .") VALUES (". rtrim($v, ', ') .");";
+			if(mysql_query("$q")) alert_box("success","Success","Data saved!");
+			else alert_box("error","error","Error on saving data, please try again later.");
+		}
+	}
+	
+	function DeleteFromTable($table,$id){
+		if(mysql_query("UPDATE $table SET delete_$table='1' WHERE id_$table='$id'"))alert_box("success","Success","Data deleted!");
+		else alert_box("error","error","Error on deleting data, please try again later.");
+	}
+	
+	function alert_box($type,$title,$text){
+		switch($type){
+			case "error": echo "<div class='alert error no-margin-top'><span class='icon'></span><span class='close'>x</span><strong>".__("$title")."</strong> ".__("$text")."</div>"; break;
+			case "success": echo "<div class='alert success no-margin-top'><span class='icon'></span><span class='close'>x</span><strong>".__("$title")."</strong> ".__("$text")."</div>"; break;
+			case "warning": echo "<div class='alert warning no-margin-top'><span class='icon'></span><span class='close'>x</span><strong>".__("$title")."</strong> ".__("$text")."</div>"; break;
+			case "information": echo "<div class='alert information no-margin-top'><span class='icon'></span><span class='close'>x</span><strong>".__("$title")."</strong> ".__("$text")."</div>"; break;
+			case "note ": echo "<div class='alert note no-margin-top'><span class='icon'></span><span class='close'>x</span><strong>".__("$title")."</strong> ".__("$text")."</div>"; break;
+		}
 	}
 ?>

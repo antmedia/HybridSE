@@ -165,14 +165,33 @@
     <script src="js/script.js"></script>
     
     <!-- Your custom JS goes here -->
+	<script language="Javascript" type="text/javascript" src="extras/edit_area/edit_area_full.js"></script>
     <script src="js/app.js"></script>
     <!-- Load TinyMCE -->
-	<script type="text/javascript" src="js/mylibs/tiny_mce/jquery.tinymce.js"></script>
+	<!-- NEW TinyMCE -->
+	<!--<script type="text/javascript" src="js/mylibs/tiny_mce/tinymce.min.js"></script>
+	<script type="text/javascript">
+	tinymce.init({
+		selector: '.tinymce',
+		plugins: 'link image code',
+		language : 'pt_BR',
+		relative_urls: false,
+		file_browser_callback : function(field_name, url, type, win) {
+			var w = window.open('extras/explorer/elfinder.php', null, 'width=900,height=401');
+			//var w = window.open('../../../../../extras/explorer/elfinder.php', null, 'width=900,height=430');
+			w.tinymceFileField = field_name;
+			w.tinymceFileWin = win;
+		}
+	});
+	</script>-->
+	<!-- //NEW TinyMCE -->
+
+	<script type="text/javascript" src="js/mylibs/tiny_mceOLD/jquery.tinymce.js"></script>
 	<script type="text/javascript">
 		$().ready(function() {
 			$('textarea.tinymce').tinymce({
 				// Location of TinyMCE script
-				script_url : 'js/mylibs/tiny_mce/tiny_mce.js',
+				script_url : 'js/mylibs/tiny_mceOLD/tiny_mce.js',
 
 				// General options
 				language : 'pt',
@@ -395,7 +414,7 @@
                 <nav><ul class="collapsible accordion">
                 
                     <li class="current"><a href="?"><img src="img/icons/packs/fugue/16x16/dashboard.png" alt="" height=16 width=16><?php echo __("Dashboard") ?></a></li>
-                    <li><a href="?"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height=16 width=16><?php echo __("Pages") ?></a></li>
+                    <li><a href="?st=1"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height=16 width=16><?php echo __("Pages") ?></a></li>
 					<li>
                         <a href="javascript:void(0);"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height="16" width="16"><?php echo __("FaceBook") ?><span class="badge">6</span></a>
                         <ul>
@@ -421,7 +440,7 @@
                         </ul>
                     </li>
 					<li>
-                        <a href="javascript:void(0);"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height="16" width="16">Webmaster<span class="badge">5</span></a>
+                        <a href="javascript:void(0);"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height="16" width="16">Webmaster<span class="badge">6</span></a>
                         <ul>
                             <li><a href="?st=wm1"><span class="icon icon-list"></span>Administradores</a></li>
                             <li><a href="?st=wm3"><span class="icon icon-cog"></span>Logs</a></li>
@@ -429,6 +448,14 @@
                             <li><a href="?st=wm2"><span class="icon icon-th"></span>Menu</a></li>
                             <li><a href="?st=wm5"><span class="icon icon-th"></span>SandBox</a></li>
                             <li><a href="?st=wm6"><span class="icon icon-th"></span>Create módulo</a></li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="javascript:void(0);"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height="16" width="16">Forms<span class="badge">3</span></a>
+                        <ul>
+                            <li><a href="?st=f1"><span class="icon icon-list"></span>Forms</a></li>
+                            <li><a href="?st=f2"><span class="icon icon-cog"></span>Stats</a></li>
+                            <li><a href="?st=f3"><span class="icon icon-picture"></span>Create</a></li>
                         </ul>
                     </li>
 					<li>

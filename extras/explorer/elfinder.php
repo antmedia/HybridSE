@@ -13,7 +13,12 @@
 		<!-- elFinder CSS (REQUIRED) -->
 		<link rel="stylesheet" type="text/css" media="screen" href="css/elfinder.full.css">
 		<link rel="stylesheet" type="text/css" media="screen" href="css/theme.css">
-
+		<style>
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		</style>
 		<!-- elFinder JS (REQUIRED) -->
 		<script type="text/javascript" src="js/elfinder.min.js"></script>
 

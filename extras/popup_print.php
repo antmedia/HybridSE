@@ -110,11 +110,11 @@
 					applet.appendHTML('<tr>');
 					applet.appendHTML('<td><img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=http%3A//www.danone.pt&chld=H|0\"></td>');
 					applet.appendHTML('<td><h2> Desconto de 10% para <?php print_r($dataproducts['name_shop_products']) ?></h2> <?php print_r($dataproducts['intro_text_shop_products']) ?></td>');
-					applet.appendHTML('<td valign="top" align="right"><img src="http://localhost/hybrid_coupons/misc/10desconto.png" width="50px"><br><?php print_r($datacoupons['print_code_clients_coupons']) ?></td>');
+					applet.appendHTML('<td valign="top" align="right"><img src="http://www.hybrid.pt/se/extras/coupons/misc/10desconto.png" width="50px"><br><?php print_r($datacoupons['print_code_clients_coupons']) ?></td>');
 					applet.appendHTML('</tr>');
 					applet.appendHTML('<tr>');
-					applet.appendHTML('<td colspan="2" align="center"><img src="http://localhost/hybrid_coupons/ean13/html/image.php?code=ean13&o=1&dpi=72&t=30&r=1&rot=0&text=<?php print_r($dataproducts['code_min_shop_products']) ?>&f1=Arial.ttf&f2=10&a1=&a2=&a3="></td>');
-					applet.appendHTML('<td><img src="http://localhost/hybrid_coupons/misc/danone_logo.png" width="100px">');
+					applet.appendHTML('<td colspan="2" align="center"><img src="http://www.hybrid.pt/se/extras/coupons/ean13/html/image.php?code=ean13&o=1&dpi=72&t=30&r=1&rot=0&text=<?php print_r($dataproducts['code_min_shop_products']) ?>&f1=Arial.ttf&f2=10&a1=&a2=&a3="></td>');
+					applet.appendHTML('<td><img src="http://www.hybrid.pt/se/extras/coupons/misc/danone_logo.png" width="100px">');
 					applet.appendHTML('</tr>');
 					applet.appendHTML('</table>');	
 					<?php } ?>

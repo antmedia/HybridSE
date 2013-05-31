@@ -31,8 +31,8 @@ $opts = array(
 	'roots' => array(
 		array(
 			'driver'        => 'LocalFileSystem',   // driver for accessing file system (REQUIRED)
-			'path'          => "../../../../documents/",         // path to files (REQUIRED)
-			'URL'           => "../../../documents/", // URL to files (REQUIRED)
+			'path'          => "../../../documents/",         // path to files (REQUIRED)
+			'URL'           => "../../documents/", // URL to files (REQUIRED)
 			//'URL'           => "../../documents/avatar/", // URL to files (REQUIRED)
 			'accessControl' => 'access'             // disable and hide dot starting files (OPTIONAL)
 		)

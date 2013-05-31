@@ -44,13 +44,14 @@
 		while($data=mysql_fetch_array($sql)){
 			$data_products=mysql_fetch_array(mysql_query("SELECT * FROM shop_products WHERE id_shop_products='$data[fk_shop_products]'"));
 			$mystatus=($data['status_clients_coupons']==0)?"<input type='text' size='6' maxlength='6' name='upstatus_$data[id_clients_coupons]' id='upstatus_$data[id_clients_coupons]'><input type='button' onclick=\"javascript:change_status(document.getElementById('upstatus_$data[id_clients_coupons]').value)\" value='GO'>":"Activado";
+			$printstatus=($data['status_clients_coupons']==1)?"<input type='checkbox' class='mycheck' name='checkme[]' value='$data[fk_shop_products]' disabled>":"<input type='checkbox' class='mycheck' name='checkme[]' value='$data[fk_shop_products]'>";
 			echo"<tr class='gradeX'>
 						<td>$data[id_clients_coupons]</td>
 						<td>$data[fk_clients]</td>
 						<td>$data_products[name_shop_products]</td>
-						<td class='center'><input type='checkbox' class='mycheck' name='checkme[]' value='$data[fk_shop_products]'></td>
+						<td class='center'>$printstatus</td>
 						<td class='center'>$mystatus</td>
-						<td class='center'><a href='#' class='button small grey tooltip' data-gravity='s' title='Editar' onclick=\"javascript:return alert('Lamentamos mas esta opção ainda não se encontra disponível.')\"><i class='icon-pencil'></i></a> <a href='?st=sb2&del=$data[id_clients_coupons]' class='button small grey tooltip' data-gravity='s' title='Apagar' onclick=\"javascript:return confirm('Tem a certeza?')\"><i class='icon-remove'></i></a></td>
+						<td class='center'><a href='#' class='button small grey tooltip' data-gravity='s' title='Editar' onclick=\"javascript:return alert('Lamentamos mas esta opção ainda não se encontra disponível.')\"><i class='icon-pencil'></i></a> <a href='?st=$_GET[st]&del=$data[id_clients_coupons]' class='button small grey tooltip' data-gravity='s' title='Apagar' onclick=\"javascript:return confirm('Tem a certeza?')\"><i class='icon-remove'></i></a></td>
 					</tr>";
 		}
 	}

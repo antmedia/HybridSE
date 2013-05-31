@@ -43,5 +43,8 @@
 				closedir($handle);
 			}
 		}
+		if($_GET['st']=='f1') include("modules/forms/forms.php");
+		if($_GET['st']=='f2') include("modules/forms/stats.php");
+		if($_GET['st']=='f3') include("modules/forms/create.php");
 	} else include ('modules/home.php');
 ?>
