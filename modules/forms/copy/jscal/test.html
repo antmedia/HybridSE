@@ -1,0 +1,25 @@
+<link rel="stylesheet" type="text/css" href="css/jscal2.css" />
+<link rel="stylesheet" type="text/css" href="css/border-radius.css" />
+<link rel="stylesheet" type="text/css" href="css/bare/bare.css" />
+<!--
+<link rel="stylesheet" type="text/css" href="css/bare/bare.css" />
+<link rel="stylesheet" type="text/css" href="css/gold/gold.css" />
+<link rel="stylesheet" type="text/css" href="css/matrix/matrix.css" />
+<link rel="stylesheet" type="text/css" href="css/steel/steel.css" />
+<link rel="stylesheet" type="text/css" href="css/win2k/win2k.css" />
+-->
+<script type="text/javascript" src="js/jscal2.js"></script>
+<script type="text/javascript" src="js/lang/pt.js"></script>
+
+<input id="calendar-field">
+<button id="calendar-trigger" type="button">...</button>
+<script type="text/javascript">
+
+Calendar.setup({
+    inputField : "calendar-field",
+    trigger    : "calendar-trigger",
+	showTime   : 12,
+    onSelect   : function() { this.hide() }
+});
+
+</script>

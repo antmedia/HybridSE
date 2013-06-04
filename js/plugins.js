@@ -396,7 +396,7 @@
 					sLengthMenu : '<span class=text>' + opts.lang.SHOW_ENTRIES + '</span> _MENU_',
 					sSearch     : '<span class=text>' + opts.lang.SEARCH + '</span> _INPUT_'
 				},
-				aLengthMenu     : [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']]
+				aLengthMenu     : [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'Tudo']]
 			}, opts.dataTable)).parent().find('.dataTables_length select').data('width', 'auto');
 			
 			var $dataTable = $table.parent(),
@@ -462,7 +462,7 @@
 		filterBar: 'toggle', // One of: 'always', 'toggle, 'none'
 		showFilterBar: false, // Show or hide the filter bar initially
 		
-		maxItemsPerPage: 5,
+		maxItemsPerPage: 20,
 		
 		dataTable: {},	// dataTable options
 		tableTools: {
@@ -476,8 +476,8 @@
 		},
 		
 		lang: {
-			SHOW_ENTRIES: 'Show entries:',
-			SEARCH: 'Search:'
+			SHOW_ENTRIES: 'Mostrar registos:',
+			SEARCH: 'Procurar:'
 		}
 	};
 	

@@ -54,7 +54,7 @@
             //$readme=what_to_talk("This is my first test 2");
         } else {
             //$alert_msg="<div class='alert error no-margin top'><span class='hide'>x</span>".__("Wrong username or password.")."</div>";
-            //what_to_talk("Your logon information is incorrect");
+            what_to_talk("Access denied");
             //mysql_query("INSERT INTO block (ip_block) VALUES ('".getenv("HTTP_X_FORWARDED_FOR")."')");
         }
     }
@@ -68,12 +68,13 @@
         session_unset(); 
         session_destroy(); 
         //header('Location: ?');
-        //what_to_talk("Goodbye. Thank you for using the Hybrid");    
+        what_to_talk("Goodbye. Thank you for using Hump");    
     }
 	
 	function what_to_talk($talk=NULL){
 		if($talk!=NULL) {
-			echo("<audio src='http://translate.google.com/translate_tts?tl=en&q=$talk' autoplay></audio>");
+			//echo"<audio src='http://translate.google.com/translate_tts?tl=$_SESSION[language]&q=$talk' autoplay></audio>";
+			echo "<embed style='height:0' loop='false' src='http://translate.google.com/translate_tts?tl=en&q=$talk' autostart='true' hidden='true'/>";
 		} else {
 			$talk=__("Hello ").utf8_encode($_SESSION['admin_name']).". ";
 			//$talk=__("Hello ").utf8_encode($_SESSION['admin_name']).__(". Welcome to Hybrid BackOffice. ");
@@ -152,36 +153,43 @@
 					<h2>".__($title)."</h2>
 				</div>
 				<div class='content'>";
-		$result=(isset($id))?mysql_query("SELECT * FROM $table WHERE id_$table='$id'"):mysql_query("SELECT * FROM $table");
-		$dados=mysql_fetch_array($result);
-		for ($i = 0; $i < mysql_num_fields($result); ++$i) {
-			$field = mysql_field_name($result, $i);
-			if(!in_array($field,$newArrayFields)){
-				$aux_title=explode("_$table",$field);
-				$aux_two_title=str_replace("_"," ",$aux_title[0]);
-				$title=__(ucfirst($aux_two_title));
-				//echo "$title - $field<br>";
-				if($id){
-					fields_type($field,$dados[$field]);
-				} else {
-					fields_type($field);
-				}
-			}
-		}
-		echo "</div>
+					$result=(isset($id))?mysql_query("SELECT * FROM $table WHERE id_$table='$id'"):mysql_query("SELECT * FROM $table");
+					$dados=mysql_fetch_array($result);
+					for ($i = 0; $i < mysql_num_fields($result); ++$i) {
+						$field = mysql_field_name($result, $i);
+						if(!in_array($field,$newArrayFields)){
+							$aux_title=explode("_$table",$field);
+							$aux_two_title=str_replace("_"," ",$aux_title[0]);
+							$title=__(ucfirst($aux_two_title));
+							//echo "$title - $field<br>";
+							if($id){
+								fields_type($title,$field,utf8_encode($dados[$field]));
+							} else {
+								fields_type($title,$field);
+							}
+						}
+					}
+		echo	"</div>
 				<div class='actions'>
 					<div class='left'>
-						<input type='reset' value='Cancel' />
+						<input type='reset' value='".__("Cancel")."' />
 					</div>
 					<div class='right'>
-						<input type='submit' value='Submit' name=submit />
+						<div style='float:left;padding-right:20px'>
+							<select name='form_action' id='form_action'>
+								<option value=''>".__("Back to list")."</option>
+								<option value='add_new'>".__("Add new")."</option>
+								<option value='edit_this'>".__("Edit")."</option>
+							</select>
+						</div>
+						<input type='submit' value='".__("Submit")."' name=submit />
 					</div>
 				</div>
-		</form>";
+			</form>";
 		
 	}
 	
-	function fields_type($field,$data_result=NULL){
+	function fields_type($title,$field,$data_result=NULL){
 	//function fields_type($table,$field,$what){
 		//$what (form OR list)
 		//$database_field=$what."_fields";
@@ -190,19 +198,21 @@
 		$sql=mysql_query("SELECT * FROM fields WHERE name_fields='$field' AND status_fields=1");
 		$data=mysql_fetch_array($sql);
 		
-		$title_field=($data['help_fields'])?" title='$data[help_fields]' alt='$data[help_fields]' ":NULL;
+		//$title_field=($data['help_fields'])?" title='$data[help_fields]' alt='$data[help_fields]' ":NULL;
 		//$class_field=($data['class_fields'])?"$data[class_fields]":NULL;
 		$required=($data['required_fields'])?"required":NULL;
 		$placeholder=($data['placeholder_fields'])?"$data[placeholder_fields]":NULL;
 		//$predefined=($data['predefined_fields'])?"$data[predefined_fields]":NULL;
-		$title_field=ucfirst(str_replace("_"," ",$field));
-		$predefined=($data_result!=NULL)?$data_result:$data['predefined_fields'];
+		//$title_field=ucfirst(str_replace("_"," ",$field));
+		$title_field=$title;
+		$predefined=($data_result!=NULL)?utf8_encode($data_result):$data['predefined_fields'];
+		//$predefined=$data_result;
 		
 		
 		switch($data['type_fields']){
 			case "text"						:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
 			case "number"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='number' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
-			case "email"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='email' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
+			case "email"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' email='true' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
 			case "password"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='password' data-gravity=n name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
 			case "password_meter"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type=password name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='meter strongpw $required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
 			case "textarea_nogrow"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='nogrow $required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
@@ -437,7 +447,8 @@
 													});
 												</script>
 												<?php echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='nogrow $required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
-			default							:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' $title_field /></div></div>";Break;
+			case "hidden"					:	echo "<input type='hidden' name='$field' id='$field' value='$predefined' />";Break;
+			default							:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required'  value='$predefined' placeholder='$placeholder' $title_field /></div></div>";Break;
 		}
 	}
 	
@@ -544,8 +555,19 @@
 				if(in_array("see",$newArrayOptions)) echo" <a href='?st=$_GET[st]&see=$data[$aux_id]' title='".__("See")."' alt='".__("See")."'><i class='icon-magnifying-glass'></i></a>";
 				if(in_array("reply",$newArrayOptions)) echo" <a href='?st=$_GET[st]&reply=$data[$aux_id]' title='".__("Reply")."' alt='".__("Reply")."'><i class='icon-speech-bubble'></i></a>";
 				if(in_array("send",$newArrayOptions)) echo" <a href='?st=$_GET[st]&send=$data[$aux_id]' onclick=\"javascript:return confirm('".__("Are you sure?")."')\" title='".__("Send")."' alt='".__("Send")."'><i class='icon-mail'></i></a>";
+				//if(in_array("options",$newArrayOptions))echo" <a href='?st=$_GET[st]&edit=$data[$aux_id]' title='".__("Options")."' alt='".__("Options")."'><i class='icon-cogs'></i></a>";
 				if(in_array("map",$newArrayOptions)) echo" <a href='http://maps.google.com/maps?f=q&hl=en&geocode=&q=$data[$aux_address],$data[$aux_locality]&z=20' title='".__("Map")."' alt='".__("Map")."' target='_blank'><i class='icon-globe'></i></a>";
 				if(in_array("qrcode",$newArrayOptions)) echo" <a href='http://chart.apis.google.com/chart?cht=qr&chs=230x230&chl=$qr_code' title='".__("QR code")."' alt='".__("QR code")."' target='_blank'><i class='icon-iphone-4'></i></a>";
+				//Form options
+				$form_id="fk_forms";
+				$form_step="step_form_fields";
+				$form_field="fk_form_fields";
+				if(in_array("FielEdit",$newArrayOptions))echo" <a href='?st=$_GET[st]&form=$data[$form_id]&step=$data[$form_step]&edit=$data[$aux_id]' title='".__("Edit")."' alt='".__("Edit")."'><i class='icon-pencil'></i></a>";
+				if(in_array("FieldDelete",$newArrayOptions)) echo" <a href='?st=$_GET[st]&form=$data[$form_id]&delete=$data[$aux_id]' onclick=\"javascript:return confirm('".__("Delete. Are you sure?")."')\" title='".__("Delete")."' alt='".__("Delete")."'><i class='icon-remove'></i></a>";
+				if(in_array("FieldCreate",$newArrayOptions))echo" <a href='?st=f2&form=$data[$aux_id]' title='".__("Create form")."' alt='".__("Create form")."'><i class='icon-cogs'></i></a>";
+				if(in_array("FieldOptions",$newArrayOptions))echo" <a href='?st=f3&form=$data[$form_id]&step=$data[$form_step]&field=$data[$aux_id]' title='".__("Field options")."' alt='".__("Field options")."'><i class='icon-cogs'></i></a>";
+				if(in_array("OptionEdit",$newArrayOptions))echo" <a href='?st=$_GET[st]&form=$data[$form_id]&field=$data[$form_field]&edit=$data[$aux_id]' title='".__("Edit")."' alt='".__("Edit")."'><i class='icon-pencil'></i></a>";
+				if(in_array("OptionDelete",$newArrayOptions)) echo" <a href='?st=$_GET[st]&form=$data[$form_id]&field=$data[$form_field]&delete=$data[$aux_id]' onclick=\"javascript:return confirm('".__("Delete. Are you sure?")."')\" title='".__("Delete")."' alt='".__("Delete")."'><i class='icon-remove'></i></a>";
 				echo"</td>";
 			}
 			echo"</tr>";
@@ -603,6 +625,22 @@
 		if(mysql_query("UPDATE $table SET delete_$table='1' WHERE id_$table='$id'"))alert_box("success","Success","Data deleted!");
 		else alert_box("error","error","Error on deleting data, please try again later.");
 	}
+	
+	function recurse_copy($src,$dst) { //Function to copy entire folder recursively 
+		$dir = opendir($src); 
+		@mkdir($dst); 
+		while(false !== ( $file = readdir($dir)) ) { 
+			if (( $file != '.' ) && ( $file != '..' )) { 
+				if ( is_dir($src . '/' . $file) ) { 
+					recurse_copy($src . '/' . $file,$dst . '/' . $file); 
+				} 
+				else { 
+					copy($src . '/' . $file,$dst . '/' . $file); 
+				} 
+			} 
+		} 
+		closedir($dir); 
+	} 
 	
 	function alert_box($type,$title,$text){
 		switch($type){

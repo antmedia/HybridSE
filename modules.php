@@ -44,7 +44,7 @@
 			}
 		}
 		if($_GET['st']=='f1') include("modules/forms/forms.php");
-		if($_GET['st']=='f2') include("modules/forms/stats.php");
-		if($_GET['st']=='f3') include("modules/forms/create.php");
+		if($_GET['st']=='f2') include("modules/forms/fields.php");
+		if($_GET['st']=='f3') include("modules/forms/options.php");
 	} else include ('modules/home.php');
 ?>

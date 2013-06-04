@@ -32,7 +32,7 @@
        More info: h5bp.com/b/378 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>HybridSE - <?php echo __("Licensed to") ?> Danone</title>
+    <title>Hump - <?php echo __("Licensed to") ?> Whale</title>
     <meta name="description" content="Mango is a slick and responsive Admin Template build with modern techniques like HTML5 and CSS3 to be used for backend solutions of any size.">
     <meta name="author" content="Simon Stamm &amp; Markus Siemens">
 
@@ -300,7 +300,7 @@
             <!-- Left side -->
             <div class="left">
                 <ul class="breadcrumb">
-                    <li><a href="?">Hybrid</a></li>
+                    <li><a href="?">Hump</a></li>
 					<li><a href="?"><?php echo __("Dashboard")?></a></li>
                 </ul>
             </div>
@@ -359,8 +359,8 @@
     <header class="container_12">
     
         <!-- Your logos -->
-        <a href="?"><img src="img/logo.png" alt="Hybrid" width="191" height="60"></a>
-        <a class="phone-title" href="?"><img src="img/logo-mobile.png" alt="Hybrid" height="22" width="70" /></a>
+        <a href="?"><img src="img/logo.png" alt="Hump" width="191" height="60"></a>
+        <a class="phone-title" href="?"><img src="img/logo-mobile.png" alt="Hump" height="22" width="70" /></a>
         
         <div class="buttons">
             <a href="#">
@@ -549,7 +549,7 @@
 			<!-- Left side -->
 			<div class="left">
 				<ul class="breadcrumb">
-					<li><a href="javascript:void(0);">Hybrid</a></li>
+					<li><a href="javascript:void(0);">Hump</a></li>
 					<li><a href="javascript:void(0);"><?php echo __("Login") ?></a></li>
 				</ul>
 			</div>
