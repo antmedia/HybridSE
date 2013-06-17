@@ -2,6 +2,8 @@
 	session_start();
     include('config.php');
     include('extras/functions.php');
+    //include('extras/krumo/class.krumo.php'); //Var_dump alternativo Exemplo "krumo($_POST);"
+	require 'extras/kint/Kint.class.php'; //Var_dump alternativo "Kint::dump( $_POST );"
 	//print_r($_COOKIE);
     
 	//Translate module 
@@ -249,7 +251,8 @@
 	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 	<script type="text/javascript">stLight.options({publisher: "42f7eae4-f16e-4893-a01f-ae04f1903196", doNotHash: false, doNotCopy: false, hashAddressBar: true, theme:'2', onhover: false});</script>-->
 	<!-- //Add this -->
-	
+	<script type="text/javascript" src="http://jscolor.com/example/jscolor/jscolor.js"></script>
+
     <!-- end scripts -->
     
 </head>

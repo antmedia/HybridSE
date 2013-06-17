@@ -18,10 +18,47 @@
 				</div>
 			</div>";
 			
-			ListTable("form_fields","id,name,type,placeholder,created","FielEdit,FieldDelete,FieldOptions","fk_forms='$form' AND step_form_fields='$step'");
+			ListTable("form_fields","id,title,name,type,created","FielEdit,FieldDelete,FieldOptions","fk_forms='$form' AND step_form_fields='$step'");
 	echo"</div>
 				</div>
 			</div>";
 		}
+	}
+	
+	function fields_styles($title,$types,$field){
+		$exp_Type=explode(',',$types);
+		//$newArrayTypes=array();
+		echo"<div class='header'>
+				<h2>".__("$title")."</h2>
+				<ul>";
+					foreach ($exp_Type as $type){
+						echo "<li><a href='#t1-$type'>".ucwords($type)."</a></li>";
+					}
+		echo 	"</ul>
+			</div>";
+		
+		echo"<div class='content tabbed'>";
+				foreach ($exp_Type as $type){
+					echo "<div id='t1-$type' style='line-height:200%'>";
+					$sql=mysql_query("SELECT * FROM form_fields_styles WHERE type_form_fields_styles='$type'");
+					while($data=mysql_fetch_array($sql)){
+						fields_type($data['title_form_fields_styles'],$data['form_fields_styles'],NULL,FALSE);
+						$what=explode("_",$data['form_fields_styles']);
+						?>
+							<script>
+								$(document).ready(function() {
+									$('#<?php echo $data['form_fields_styles'] ?>').change(
+										function(){
+											$("#form_preview").contents().find(".global_<?php echo $field?>").css("<?php echo $what[1] ?>",$("#<?php echo $data['form_fields_styles'] ?>").val());
+										}
+									);
+								});
+							</script>
+						<?php
+					}
+					echo "<p></p></div>";
+				}
+		echo "</div>";
+		
 	}
 ?>

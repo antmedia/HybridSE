@@ -1,12 +1,37 @@
 
-form input, form textarea, form select{
-	border-color:#ff0000;
-	background-color:#d6ced6;
-	padding:5;
-	margin:5;
-	width:300;
-	height:20;
-	font-family:Times New Roman;
-	font-size:12;
-	color:#000000;
+form input[type="text"], form textarea, form select{
+	border-color: 1A0EC2;
+	background-color: 238C2A;
+	border-radius: 4;
+	-moz-border-radius: 4;
+	-webkit-border-radius: 4;
+	-ms-border-radius: 4;
+	padding: 5;
+	margin: 0;
+	width: 300;
+	height: 30;
+	font-family: Verdana;
+	font-size: 12;
+	color: FFFFFF;
+}
+
+.outside{
+	border-color: FFFFFF;
+	background-color: BDBDBD;
+	border-radius: 5;
+	-moz-border-radius: 5;
+	-webkit-border-radius: 5;
+	-ms-border-radius: 5;
+	padding: 5;
+	margin: 0;
+	width: 300;
+	height: 30;
+}
+
+form label{
+	padding: 5;
+	margin: 5;
+	font-family: Verdana;
+	font-size: 12;
+	color: FF1C33;
 }

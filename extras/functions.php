@@ -189,7 +189,7 @@
 		
 	}
 	
-	function fields_type($title,$field,$data_result=NULL){
+	function fields_type($title,$field,$data_result=NULL,$styled=TRUE){
 	//function fields_type($table,$field,$what){
 		//$what (form OR list)
 		//$database_field=$what."_fields";
@@ -208,21 +208,19 @@
 		$predefined=($data_result!=NULL)?utf8_encode($data_result):$data['predefined_fields'];
 		//$predefined=$data_result;
 		
+		$start_input=($styled==TRUE)?"<div class='row'><label for='$field'><strong>$title_field</strong></label><div>":"<label for='$field'><strong>$title_field</strong></label><div>";
+		$end_input=($styled==TRUE)?"</div></div>":"</div>";
 		
 		switch($data['type_fields']){
-			case "text"						:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
-			case "number"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='number' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
-			case "email"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' email='true' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
-			case "password"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='password' data-gravity=n name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
-			case "password_meter"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type=password name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='meter strongpw $required' placeholder='$placeholder' value='$predefined' $title_field /></div></div>";Break;
-			case "textarea_nogrow"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='nogrow $required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
-			case "textarea_autogrow"		:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='$required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
-			case "wysiwyg"					:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='tinymce $required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
-			case "select_search"			:	echo "<div class='row'>
-													<label for='$field'>
-														<strong>$title_field</strong>
-													</label>
-													<div>";
+			case "text"						:	echo "$start_input<input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field />$end_input";Break;
+			case "number"					:	echo "$start_input<input data-error-type='inline' type='number' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field />$end_input";Break;
+			case "email"					:	echo "$start_input<input data-error-type='inline' type='text' email='true' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field />$end_input";Break;
+			case "password"					:	echo "$start_input<input data-error-type='inline' type='password' data-gravity=n name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required' placeholder='$placeholder' value='$predefined' $title_field />$end_input";Break;
+			case "password_meter"			:	echo "$start_input<input data-error-type='inline' type=password name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='meter strongpw $required' placeholder='$placeholder' value='$predefined' $title_field />$end_input";Break;
+			case "textarea_nogrow"			:	echo "$start_input<textarea rows='5' name='$field' id='$field' class='nogrow $required' placeholder='$placeholder' $title_field>$predefined</textarea>$end_input";Break;
+			case "textarea_autogrow"		:	echo "$start_input<textarea rows='5' name='$field' id='$field' class='$required' placeholder='$placeholder' $title_field>$predefined</textarea>$end_input";Break;
+			case "wysiwyg"					:	echo "$start_input<textarea rows='5' name='$field' id='$field' class='tinymce $required' placeholder='$placeholder' $title_field>$predefined</textarea>$end_input";Break;
+			case "select_search"			:	echo "$start_input";
 														//Find data from table
 														if($data['values_fields']){
 															echo "<select data-error-type='inline' name='$field' id='$field' class='search $required' data-placeholder='$placeholder'>";
@@ -246,12 +244,8 @@
 															}
 															echo "</select>";
 														}
-												echo"</div></div>";Break;
-			case "select_nosearch"			:	echo "<div class='row'>
-													<label for='$field'>
-														<strong>$title_field</strong>
-													</label>
-													<div>";
+												echo"$end_input";Break;
+			case "select_nosearch"			:	echo "$start_input";
 														//Find data from table
 														if($data['values_fields']){
 															echo "<select data-error-type='inline' name='$field' id='$field' class='$required' data-placeholder='$placeholder'>";
@@ -275,12 +269,8 @@
 															}
 															echo "</select>";
 														}
-												echo "</div></div>";Break;
-			case "select_tags"				:	echo "<div class='row'>
-													<label for='$field'>
-														<strong>$title_field</strong>
-													</label>
-													<div>";
+												echo "$end_input";Break;
+			case "select_tags"				:	echo "$start_input";
 														//Find data from table
 														if($data['values_fields']){
 															$field_array="[]";
@@ -308,12 +298,8 @@
 															}
 															echo "</select>";
 														}
-												echo "</div></div>";Break;
-			case "select_dual"				:	echo "<div class='row'>
-													<label for='$field'>
-														<strong>$title_field</strong>
-													</label>
-													<div>";
+												echo "$end_input";Break;
+			case "select_dual"				:	echo "$start_input";
 														//Find data from table
 														if($data['values_fields']){
 															$field_array="[]";
@@ -339,16 +325,12 @@
 															}
 															echo "</select>";
 														}
-												echo "</div></div>";Break;
-			case "picker_date"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' type='date' name='$field' id='$field' value='$predefined' class='$required' /></div></div></div>";Break;
-			case "picker_time"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' type='time' name='$field' id='$field' value='$predefined' class='$required' data-step-minute='10' /></div></div></div>";Break;
-			case "picker_date_time"			:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' type='datetime' name='$field' id='$field' value='$predefined' class='$required'/></div></div></div>";Break;
-			case "picker_color"				:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' type='color' name='$field' id='$field' value='$predefined' class='$required'/></div></div></div>";Break;
-			case "checkbox"					:	echo "<div class='row'>
-													<label for='$field'>
-														<strong>$title_field</strong>
-													</label>
-													<div>";
+												echo "$end_input";Break;
+			case "picker_date"				:	echo "$start_input<div><input data-error-type='inline' type='date' name='$field' id='$field' value='$predefined' class='$required' /></div>$end_input";Break;
+			case "picker_time"				:	echo "$start_input<div><input data-error-type='inline' type='time' name='$field' id='$field' value='$predefined' class='$required' data-step-minute='10' /></div>$end_input";Break;
+			case "picker_date_time"			:	echo "$start_input<div><input data-error-type='inline' type='datetime' name='$field' id='$field' value='$predefined' class='$required'/></div>$end_input";Break;
+			case "picker_color"				:	echo "$start_input<div><input data-error-type='inline' type='text' name='$field' id='$field' value='$predefined' class='$required color'/></div>$end_input";Break;
+			case "checkbox"					:	echo "$start_input";
 														//Find data from table
 														if($data['values_fields']){
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
@@ -371,14 +353,11 @@
 																}
 															}
 														} else {
-															echo"<div><input data-error-type='inline' type='checkbox' name='$field' id='$field' value='1' class='$required' /> <label for='$field'></label></div>";
+															$selected=($predefined==1)?"checked":NULL;
+															echo"<div><input data-error-type='inline' type='checkbox' name='$field' id='$field' value='1' class='$required' $selected/> <label for='$field'></label></div>";
 														}
-												echo "</div></div>";Break;
-			case "radio"					:	echo "<div class='row'>
-													<label for='$field'>
-														<strong>$title_field</strong>
-													</label>
-													<div>";
+												echo "$end_input";Break;
+			case "radio"					:	echo "$start_input";
 														//Find data from table
 														if($data['values_fields']){
 															if(mysql_query("SELECT * FROM $data[values_fields]")){
@@ -401,13 +380,13 @@
 																}
 															}
 														}
-												echo "</div></div>";Break;
-			case "slider"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' data-type='range' name='$field' id='$field' class='$required' value='$predefined' /></div></div>";Break;
-			case "slider_range"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' data-type='range' data-range='[$data[values_fields]]' name='$field' id='$field' class='$required' value='$predefined' /></div></div>";Break;
+												echo "$end_input";Break;
+			case "slider"					:	echo "$start_input<input data-error-type='inline' data-type='range' name='$field' id='$field' class='$required' value='$predefined' />$end_input";Break;
+			case "slider_range"				:	echo "$start_input<input data-error-type='inline' data-type='range' data-range='[$data[values_fields]]' name='$field' id='$field' class='$required' value='$predefined' />$end_input";Break;
 			//case "autocomplete"				:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type=text data-type='autocomplete' id='$field' name='$field' data-source='extras/autocomplete.php?what=$data[values_fields]' /></div></div>";Break;
-			case "spinner"					:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><div><input data-error-type='inline' data-type='spinner' name='$field' id='$field' class='$required' value='$predefined' /></div></div></div>";Break;
-			case "file"						:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='file' id='$field' name='$field' class='$required' /></div></div>";Break;
-			case "image"					:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' class='$required' value='$predefined' placeholder='$placeholder' $title_field /></div></div>";
+			case "spinner"					:	echo "$start_input<div><input data-error-type='inline' data-type='spinner' name='$field' id='$field' class='$required' value='$predefined' /></div>$end_input";Break;
+			case "file"						:	echo "$start_input<input data-error-type='inline' type='file' id='$field' name='$field' class='$required' />$end_input";Break;
+			case "image"					:	echo "$start_input<input data-error-type='inline' type='text' name='$field' id='$field' class='$required' value='$predefined' placeholder='$placeholder' $title_field />$end_input";
 												?>
 												<script language='JavaScript'>
 													$('#<?php echo $field?>').popupWindow({ 
@@ -421,7 +400,7 @@
 												</script>
 												<?php
 												break;
-			case "document"					:	echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' class='$required' value='$predefined' placeholder='$placeholder' $title_field /></div></div>";
+			case "document"					:	echo "$start_input<input data-error-type='inline' type='text' name='$field' id='$field' class='$required' value='$predefined' placeholder='$placeholder' $title_field />$end_input";
 												?>
 												<script language='JavaScript'>
 													$('#<?php echo $field?>').popupWindow({ 
@@ -446,9 +425,9 @@
 														,syntax: "js"	
 													});
 												</script>
-												<?php echo "<div class='row not-on-phone'><label for='$field'><strong>$title_field</strong></label><div><textarea rows='5' name='$field' id='$field' class='nogrow $required' placeholder='$placeholder' $title_field>$predefined</textarea></div></div>";Break;
+												<?php echo "$start_input<textarea rows='5' name='$field' id='$field' class='nogrow $required' placeholder='$placeholder' $title_field>$predefined</textarea>$end_input";Break;
 			case "hidden"					:	echo "<input type='hidden' name='$field' id='$field' value='$predefined' />";Break;
-			default							:	echo "<div class='row'><label for='$field'><strong>$title_field</strong></label><div><input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required'  value='$predefined' placeholder='$placeholder' $title_field /></div></div>";Break;
+			default							:	echo "$start_input<input data-error-type='inline' type='text' name='$field' id='$field' x-webkit-speech='x-webkit-speech' class='$required'  value='$predefined' placeholder='$placeholder' $title_field />$end_input";Break;
 		}
 	}
 	
